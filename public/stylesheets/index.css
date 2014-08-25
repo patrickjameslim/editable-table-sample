@@ -1,0 +1,45 @@
+body {
+	background:url(../images/white_plaster.png);
+}
+
+.tags a:hover, .read-more a:hover {
+	text-decoration: underline;
+}
+
+.read-more {
+	text-align: right;
+	padding: 10px;
+}
+
+.tags a{
+	margin-left: 10px;
+}
+
+.tags p {
+	margin-bottom: 0 !important;
+}
+
+.index-container {
+	margin-top:40px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+
+.index-container {
+	background: #fff;
+}
+.notif-container article {
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin-bottom: 5px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+
+.notif-container article:hover {
+	background: #eee;
+}

@@ -1,0 +1,29 @@
+body {
+	background:url(../images/white_plaster.png);
+}
+
+.cashier-title {
+	margin-top: 40px;
+}
+
+h5 {
+	background: #26A65B;
+	color: #fff !important;
+	padding:10px;
+	margin: 20px 0;
+}
+
+input[type="text"]{
+	margin-top: 20px;
+}
+
+
+input[type="submit"] {
+	margin: 20px 0;
+}
+
+input[type="submit"][value="Save"] {
+	width: 150px;
+	margin: 20px 0;
+}
+

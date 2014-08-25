@@ -1,0 +1,33 @@
+body {
+	background:url(../images/white_plaster.png);
+}
+
+.options-left label, .options-left select {
+	display: inline-block;
+}
+
+.options-left select {
+	width:20%;
+}
+
+.options-right {
+	text-align: right;
+}
+
+.wheeling-rates input[type="text"]{
+	margin-top:20px;
+}
+
+.col-md-12 {
+	margin: 15px 0;
+}
+
+.col-md-12 h5 {
+	background: #26A65B;
+	padding: 10px;
+	color: #fff;
+}
+
+input[type="submit"] {
+	width: 150px;
+}

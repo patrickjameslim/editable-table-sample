@@ -1,0 +1,19 @@
+body {
+	background:url(../images/white_plaster.png);
+}
+
+
+.report-title {
+	margin-top: 40px;
+}
+.report-container {
+	border-top: 1px solid #ccc;
+}
+
+.report-name, .report-paremeters {
+	margin-top: 10px;
+}
+
+.row {
+	margin: 20px 0;
+}

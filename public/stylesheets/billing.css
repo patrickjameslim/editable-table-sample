@@ -1,0 +1,22 @@
+body {
+	background:url(../images/white_plaster.png);
+}
+
+
+.search-btn-container {
+	margin-top: 43px;
+}
+
+table {
+	margin-top: 40px;
+}
+
+.options-right button {
+	margin-top: 57px;
+	float: right;
+}
+
+.options-right a:link, a:visited {
+	color: #fff;
+	text-decoration: none;
+}

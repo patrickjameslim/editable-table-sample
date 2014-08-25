@@ -1,0 +1,26 @@
+body {
+	background:url(../images/white_plaster.png);
+}
+
+.options-left {
+	padding: 0;
+}
+
+.options-right button {
+	margin-top: 14px;
+	float: right;
+}
+
+.add-customer {
+	margin-top: 30px;
+	text-decoration: none;
+}
+
+a {
+	color: #fff;
+}
+
+a:hover {
+	color: #fff;
+}
+

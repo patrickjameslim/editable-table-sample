@@ -1,0 +1,8 @@
+.tags a:hover, .read-more a:hover {
+	text-decoration: underline;
+}
+
+.read-more {
+
+	text-align: right;
+}

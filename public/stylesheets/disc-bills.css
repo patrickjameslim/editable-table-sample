@@ -1,0 +1,11 @@
+body {
+	background:url(../images/white_plaster.png);
+}
+
+.row {
+	margin: 20px 0;
+}
+
+select {
+	width: 25%;
+}
