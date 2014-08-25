@@ -4,34 +4,27 @@
 	<div class="container">
 		<div class="row billing-title">
 			<div class="col-md-12 column">
-				<h2>Add New User</h2>
+				<h2>Edit User</h2>
 			</div>
 		</div>
 		<div class="row">
 		</div>
 		<div class="row">
-			{{Form::open(array('url' => 'admin/add-user'))}}
+			{{Form::model($user,array('url' => 'admin/edit-user', 'method' => 'patch'))}}
 					<div class="error">{{$errors->first('username')}}</div>
 					{{Form::label('username','Username')}}
-					{{Form::text('username',Input::old('username'))}}
-					<div class="error">{{$errors->first('password')}}</div>
-					{{Form::label('password','Password')}}
-					{{Form::password('password')}}
-					{{Form::label('password_confirmation','Confirm Password')}}
-					{{Form::password('password_confirmation')}}
+					{{Form::text('username')}}
 					<div class="error">{{$errors->first('first_name')}}</div>
 					{{Form::label('first_name','First Name')}}
-					{{Form::text('first_name',Input::old('first_name'))}}
+					{{Form::text('first_name')}}
 					{{Form::label('last_name','Last Name')}}
-					{{Form::text('last_name',Input::old('last_name'))}}
+					{{Form::text('last_name')}}
 					<div class="error">{{$errors->first('last_name')}}</div>
 					{{Form::label('address','Address')}}
-					{{Form::text('address',Input::old('address'))}}
+					{{Form::text('address')}}
 					<div class="error">{{$errors->first('address')}}</div>
 					{{Form::label('contact_number','Contact Number')}}
-					{{Form::text('contact_number',Input::old('contact_number'))}}
-					{{Form::label('role','Role')}}
-					{{Form::select('role',$roles)}}
+					{{Form::text('contact_number')}}
 					<div class="large-5 columns options-right">
 						{{Form::submit('Add User',array('class' => 'tiny button add-customer'))}}
 					</div>

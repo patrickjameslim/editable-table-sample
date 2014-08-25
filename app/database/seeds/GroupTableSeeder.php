@@ -43,5 +43,11 @@ class GroupTableSeeder extends Seeder{
 				'admin' => 1
 			)
 		));
+		Sentry::createGroup(array(
+			'name' => 'Collector',
+			'permissions' => array(
+				'collector' => 1
+			)
+		));
 	}
 }

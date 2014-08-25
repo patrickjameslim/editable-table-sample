@@ -76,10 +76,62 @@ class AdminController extends BaseController{
 			));
 
 			$group = Sentry::findGroupById(Input::get('role'));
-			$addGroup($group);
-
+			$user->addGroup($group);
 			//return to User-Maintenance Form
+			$roles = Group::all();
+			$arrayRole = array();
+			Session::flash('message','User Created Successful');
+			return Redirect::to('admin/user-maintenance');
 		}
-		
+	}
+
+	public function searchUser(){
+		$search_key = Input::get('search_key');
+		if($search_key == ''){
+			$users = User::paginate(10);
+		}else{
+			$users = User::whereRaw('username = ? or first_name = ? or last_name = ?',
+				 array($search_key,$search_key,$search_key))->paginate(10);
+		}
+		return View::make('admin.user-maintenance')->with('users', $users);
+	}
+	public function showEditUser($search_key){
+		$user = Sentry::find($search_key);
+		return View::make('admin.edit-user')->with('user',$user);
+	}
+	public function modifyUser(){
+		$user = new User();
+		$user->first_name = Input::get('first_name');
+		$user->last_name = Input::get('last_name');
+		$user->address = Input::get('address');
+		$user->contact_number = Input::get('contact_number');
+		$rules = array(
+			'username' => 'required|min:5|unique:users',
+			'address' => 'required',
+			'first_name' => 'required',
+			'last_name' => 'required'
+		);
+		$validator = Validator::make(Input::all(),$rules);
+		if($validator->fails()){
+			return Redirect::to('admin/edit-user')->withErrors($validator)->withInput(Input::all());
+		}else{
+			//saving if validation is successful
+			$user = Sentry::register(array(
+				'username' => Input::get('username'),
+				'address' => Input::get('address'),
+				'activated' => '1',
+				'first_name' => Input::get('first_name'),
+				'last_name' => Input::get('last_name'),
+				'contact_number' => Input::get('contact_number')
+			));
+
+			$group = Sentry::findGroupById(Input::get('role'));
+			$user->addGroup($group);
+			//return to User-Maintenance Form
+			$roles = Group::all();
+			$arrayRole = array();
+			Session::flash('message','User Modified Successful');
+			return Redirect::to('admin/user-maintenance');
+		}
 	}
 }

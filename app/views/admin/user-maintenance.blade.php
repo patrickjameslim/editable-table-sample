@@ -11,8 +11,15 @@
 				<h2>User Maintenance</h2>
 			</div>
 		</div>
-
+		@if(Session::has('message'))
+			<div class="row billing-title">
+				<div class="col-md-12 column">
+					<p class="notification">{{Session::get('message')}}</p>
+				</div>
+			</div>
+		@endif
 		<div class="row">
+		{{Form::open(array('url' => 'admin/search-user'))}}
 			<div class="col-md-7 options-left">
 				<form role="form" action="">
 					<div class="form-group">
@@ -21,19 +28,19 @@
 							  <div class="form-group">
 							    <div class="input-group">
 							    	<div class="input-group-addon"><i class="fa fa-search"></i></div>
-							    	<input type="text" class="form-control" id="search-user-logs" placeholder="Search">
+							    	{{Form::text('search_key','',array('class' => 'form-control','id' => 'search-user-logs', 'placeholder' => 'Search'))}}
 							    </div>
 							  </div>
 							</form>
 						</div>
 						<div class="col-md-3 search-btn-container">
-							<input class="btn btn-primary" type="submit" value="Search">
+								{{Form::submit('Search',array('class' => 'btn btn-primary'))}}
 						</div>
 					</div>
-				</form>
-			</div>
-			<div class="col-md-5 options-right">
-				<button class="btn btn-primary"><a href="{{URL::to('admin/add-user')}}"><i class="fa fa-plus"></i> Add User</a></button>
+				</div>
+			{{Form::close()}}
+			<div class="col-md-5 options-left">
+				<div class="btn btn-primary"><a href="{{URL::to('admin/add-user')}}"><i class="fa fa-plus"></i> Add User</a></div>
 			</div>
 		</div>
 
@@ -64,8 +71,8 @@
 			      <td>{{$user->contact_number}}</td>
 			      <td>{{$user->last_login}}</td>
 			      <td>{{Sentry::findUserByID($user->id)->getGroups()[0]->name}}</td>
-			      <td><a href = "" style="color:green">Edit</a></td>
-			      <td><a href = "" style="color:green">Delete</a></td>
+			      <td>{{HTML::link('admin/edit-user/' . $user->id, 'Edit', array('style' => 'color:green'))}}</td>
+			      <td>{{HTML::link('admin/delete-user/' . $user->id, 'Delete', array('style' => 'color:green'))}}</td>
 			    </tr>
 			   @endforeach
 			  </tbody>
