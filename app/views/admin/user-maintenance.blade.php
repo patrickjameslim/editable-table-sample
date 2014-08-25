@@ -5,7 +5,7 @@
 @stop  
 
 @section('content')
-<div class="container">
+	<div class="container">
 		<div class="row billing-title">
 			<div class="col-md-12 column">
 				<h2>User Maintenance</h2>
@@ -33,7 +33,7 @@
 				</form>
 			</div>
 			<div class="col-md-5 options-right">
-				<button class="btn btn-primary"><a href="{{URL::to('admin/add-user')}}"><i class="fa fa-plus"></i> Add Customer</a></button>
+				<button class="btn btn-primary"><a href="{{URL::to('admin/add-user')}}"><i class="fa fa-plus"></i> Add User</a></button>
 			</div>
 		</div>
 
@@ -43,9 +43,10 @@
 			    <tr>
 			      <th>#</th>
 			      <th>Username</th>
-			      <th>Email Address</th>
 			      <th>First Name</th>
 			      <th>Last Name</th>
+			      <th>Address</th>
+			      <th>Contact Number</th>
 			      <th>Last Login</th>
 			      <th>Role</th>
 			      <th>Edit</th>
@@ -57,9 +58,10 @@
 			    <tr>
 			      <td>{{$user->id}}</td>
 			      <td>{{$user->username}}</td>
-			      <td>{{$user->email}}</td>
 			      <td>{{$user->first_name}}</td>
 			      <td>{{$user->last_name}}</td>
+			      <td>{{$user->address}}</td>
+			      <td>{{$user->contact_number}}</td>
 			      <td>{{$user->last_login}}</td>
 			      <td>{{Sentry::findUserByID($user->id)->getGroups()[0]->name}}</td>
 			      <td><a href = "" style="color:green">Edit</a></td>

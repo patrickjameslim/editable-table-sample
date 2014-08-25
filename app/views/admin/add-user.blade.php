@@ -8,17 +8,28 @@
 			</div>
 		</div>
 		<div class="row">
-			{{Form::open(array('url' => 'admin/user-maintenance'))}}
+		</div>
+		<div class="row">
+			{{Form::open(array('url' => 'admin/add-user'))}}
+					<div class="error">{{$errors->first('username')}}</div>
 					{{Form::label('username','Username')}}
-					{{Form::text('username','')}}
+					{{Form::text('username',Input::old('username'))}}
+					<div class="error">{{$errors->first('password')}}</div>
 					{{Form::label('password','Password')}}
 					{{Form::password('password')}}
-					{{Form::label('email','Email Address')}}
-					{{Form::email('email')}}
+					{{Form::label('confirm_password','Confirm Password')}}
+					{{Form::password('confirm_password')}}
+					<div class="error">{{$errors->first('first_name')}}</div>
 					{{Form::label('first_name','First Name')}}
-					{{Form::text('first_name','')}}
+					{{Form::text('first_name',Input::old('first_name'))}}
 					{{Form::label('last_name','Last Name')}}
-					{{Form::text('last_name','')}}
+					{{Form::text('last_name',Input::old('last_name'))}}
+					<div class="error">{{$errors->first('last_name')}}</div>
+					{{Form::label('address','Address')}}
+					{{Form::text('address',Input::old('address'))}}
+					<div class="error">{{$errors->first('address')}}</div>
+					{{Form::label('contact_number','Contact Number')}}
+					{{Form::text('contact_number',Input::old('contact_number'))}}
 					{{Form::label('role','Role')}}
 					{{Form::select('role',$roles)}}
 					<div class="large-5 columns options-right">

@@ -7,11 +7,12 @@ class UserTableSeeder extends Seeder{
 
 		$user = Sentry::register(array(
 			'username' => 'sysadmin',
-			'email' => '',
 			'password' => 'sysadmin',
 			'activated' => '1',
 			'first_name' => 'JM',
-			'last_name' => 'Ramos'
+			'last_name' => 'Ramos',
+			'address' => '110 Brgy Coloong II Valenzuela City',
+			'contact_number' => '09054704478'
 		));
 
 		$group = Sentry::findGroupByName('System Admin');
@@ -19,11 +20,12 @@ class UserTableSeeder extends Seeder{
 
 		$user = Sentry::register(array(
 			'username' => 'cashier',
-			'email' => 'jmjm@username.com',
 			'password' => 'cashier',
 			'activated' => '1',
 			'first_name' => 'Patrick James',
-			'last_name' => 'Lim'
+			'last_name' => 'Lim',
+			'address' => '47 Dr. Pio Valenzuela St. BBB Valenzuela City',
+			'contact_number' => '09158902345'
 		));
 
 		$group = Sentry::findGroupByName('Cashier');
@@ -31,11 +33,12 @@ class UserTableSeeder extends Seeder{
 		
 		$user = Sentry::register(array(
 			'username' => 'manager',
-			'email' => 'lolo@gmail.com',
 			'password' => 'manager',
 			'activated' => '1',
 			'first_name' => 'John Benedic',
-			'last_name' => 'Enriquez'
+			'last_name' => 'Enriquez',
+			'address' => '97 Mahalimuyak St. New York Cubao, Quezon City',
+			'contact_number' => '091789152942'
 		));
 
 		$group = Sentry::findGroupByName('Area Manager');

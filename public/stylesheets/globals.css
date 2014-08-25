@@ -87,3 +87,7 @@ a:hover {
 .form-container {
 	background: #fff;
 }
+.error{
+	color:red;
+	font-size:13px;
+}

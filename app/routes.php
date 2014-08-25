@@ -92,7 +92,7 @@ Route::get('/index',function(){
 
 /* Controller Routes */
 Route::post('/index','AuthController@validateLogin');
-//admin routes
+//Admin Routes
 Route::get('/admin/home','AdminController@showIndex');
 Route::get('/admin/logout','AuthController@logout');
 Route::get('/admin/report','AdminController@showReports');
@@ -102,4 +102,6 @@ Route::get('/admin/billing','AdminController@showBilling');
 Route::get('/admin/cashier','AdminController@showCashier');
 Route::get('/admin/disconnected-bills','AdminController@showDisconnectedBills');
 Route::get('/admin/wheeling-rates','AdminController@showWheelingRates');
-Route::get('/admin/add-user','AdminCOntroller@showAddUser');
+Route::get('/admin/add-user','AdminController@showAddUser');
+
+Route::post('/admin/add-user','AdminController@saveUser');

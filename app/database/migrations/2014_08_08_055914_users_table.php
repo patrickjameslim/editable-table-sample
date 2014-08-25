@@ -14,6 +14,9 @@ class UsersTable extends Migration {
 	{
 		Schema::table('users',function($table){
 			$table->string('username')->unique();
+			$table->string('address');
+			$table->string('contact_number');
+			$table->dropColumn('email');
 		});
 	}
 
