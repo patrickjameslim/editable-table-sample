@@ -10,10 +10,7 @@
 		<div class="row">
 		</div>
 		<div class="row">
-			{{Form::model($user,array('url' => 'admin/edit-user', 'method' => 'patch'))}}
-					<div class="error">{{$errors->first('username')}}</div>
-					{{Form::label('username','Username')}}
-					{{Form::text('username')}}
+			{{Form::model($user,array('url' => 'admin/update-user/' . $user->id, 'method' => 'put'))}}
 					<div class="error">{{$errors->first('first_name')}}</div>
 					{{Form::label('first_name','First Name')}}
 					{{Form::text('first_name')}}

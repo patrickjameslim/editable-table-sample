@@ -104,7 +104,8 @@ Route::get('/admin/disconnected-bills','AdminController@showDisconnectedBills');
 Route::get('/admin/wheeling-rates','AdminController@showWheelingRates');
 Route::get('/admin/add-user','AdminController@showAddUser');
 //crud ng users
-Route::patch('/admin/edit-user','AdminController@modifyUser');
+Route::put('/admin/update-user/{id}','AdminController@modifyUser');
+Route::get('/admin/activation-user/{id}','AdminController@activation');
 Route::post('/admin/add-user','AdminController@saveUser');
 Route::post('/admin/search-user','AdminController@searchUser');
 Route::get('/admin/edit-user/{search_key}','AdminController@showEditUser');

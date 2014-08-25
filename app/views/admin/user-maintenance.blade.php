@@ -56,8 +56,9 @@
 			      <th>Contact Number</th>
 			      <th>Last Login</th>
 			      <th>Role</th>
+			      <th>Activated</th>
 			      <th>Edit</th>
-			      <th>Delete</th>
+			      <th>Deactivate</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -71,8 +72,21 @@
 			      <td>{{$user->contact_number}}</td>
 			      <td>{{$user->last_login}}</td>
 			      <td>{{Sentry::findUserByID($user->id)->getGroups()[0]->name}}</td>
+			      <td>
+			      	@if($user->activated == 1)
+			      		Yes
+			      	@else
+			      		No
+			      	@endif
+			      </td>
 			      <td>{{HTML::link('admin/edit-user/' . $user->id, 'Edit', array('style' => 'color:green'))}}</td>
-			      <td>{{HTML::link('admin/delete-user/' . $user->id, 'Delete', array('style' => 'color:green'))}}</td>
+			      <td>
+					@if($user->activated == 1)
+			      		{{HTML::link('admin/activation-user/' . $user->id, 'Dectivate', array('style' => 'color:green'))}}
+			      	@else
+			      		{{HTML::link('admin/activation-user/' . $user->id, 'Activate', array('style' => 'color:green'))}}
+			      	@endif
+			      </td>
 			    </tr>
 			   @endforeach
 			  </tbody>

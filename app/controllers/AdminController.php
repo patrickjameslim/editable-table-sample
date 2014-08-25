@@ -99,39 +99,35 @@ class AdminController extends BaseController{
 		$user = Sentry::find($search_key);
 		return View::make('admin.edit-user')->with('user',$user);
 	}
-	public function modifyUser(){
-		$user = new User();
+	public function modifyUser($id){
+		$user = User::find($id);
 		$user->first_name = Input::get('first_name');
 		$user->last_name = Input::get('last_name');
 		$user->address = Input::get('address');
 		$user->contact_number = Input::get('contact_number');
 		$rules = array(
-			'username' => 'required|min:5|unique:users',
 			'address' => 'required',
 			'first_name' => 'required',
 			'last_name' => 'required'
 		);
 		$validator = Validator::make(Input::all(),$rules);
 		if($validator->fails()){
-			return Redirect::to('admin/edit-user')->withErrors($validator)->withInput(Input::all());
+			return Redirect::to('admin/edit-user/' . $id)->withErrors($validator)->withInput(Input::all());
 		}else{
 			//saving if validation is successful
-			$user = Sentry::register(array(
-				'username' => Input::get('username'),
-				'address' => Input::get('address'),
-				'activated' => '1',
-				'first_name' => Input::get('first_name'),
-				'last_name' => Input::get('last_name'),
-				'contact_number' => Input::get('contact_number')
-			));
-
-			$group = Sentry::findGroupById(Input::get('role'));
-			$user->addGroup($group);
-			//return to User-Maintenance Form
-			$roles = Group::all();
-			$arrayRole = array();
+			$user->save();
 			Session::flash('message','User Modified Successful');
 			return Redirect::to('admin/user-maintenance');
 		}
+	}
+	public function activation($id){
+		$user = Sentry::findUserById($id);
+		if($user->activated == 0){
+			$user->activated = 1;
+		}else{
+			$user->activated = 0;
+		}
+		$user->save();
+		return Redirect::to('admin/user-maintenance');
 	}
 }
