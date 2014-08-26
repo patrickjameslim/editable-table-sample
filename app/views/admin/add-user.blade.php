@@ -10,7 +10,7 @@
 		<div class="row">
 		</div>
 		<div class="row">
-			{{Form::open(array('url' => 'admin/update-user'))}}
+			{{Form::open(array('url' => 'admin/add-user'))}}
 					<div class="error">{{$errors->first('username')}}</div>
 					{{Form::label('username','Username')}}
 					{{Form::text('username',Input::old('username'))}}

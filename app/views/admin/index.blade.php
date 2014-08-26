@@ -16,14 +16,8 @@
 						    	<input type="text" class="form-control" id="search-user-logs" placeholder="Search">
 						    </div>
 						  </div>
-						</form>	
-					</div>
-					
-					<div class="col-md-2">
-						<input type="submit" class="btn btn-primary" value="Search">
-					</div>
-
-					
+						</form>
+						
 					<div class="table-responsive">
 							<table class="table table-striped">
 							<thead>
@@ -103,6 +97,13 @@
 						</table>
 					</div>
 			</div>
+					</div>
+					
+					<div class="col-md-2">
+						<input type="submit" class="btn btn-primary" value="Search">
+					</div>
+
+					
 			
 			<div class="col-md-4">
 				<h3>Notifications</h3>

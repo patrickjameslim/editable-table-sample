@@ -1,6 +1,12 @@
 <?php
+use Quezelco\Interfaces\UserRepository as User;
+use Quezelco\Interfaces\GroupRepository as Group;
 class AdminController extends BaseController{
 	private $consumerRole = "Consumer";
+	public function __construct(User $user, Group $group){
+		$this->user = $user;
+		$this->group = $group;
+	}
 
 	public function showIndex(){
 		return View::make('admin.index');
@@ -27,7 +33,7 @@ class AdminController extends BaseController{
 	}
 
 	public function showUserMaintenance(){
-		$users = User::paginate(10);
+		$users = $this->user->paginate(10);
 		return View::make('admin.user-maintenance')->with('users', $users);
 	}
 
@@ -36,7 +42,7 @@ class AdminController extends BaseController{
 	}
 
 	public function showAddUser(){
-		$roles = Group::all();
+		$roles = $this->group->all();
 		$arrayRole = array();
 		foreach ($roles as $role) {
 			if($role->name != $this->consumerRole){
@@ -47,20 +53,7 @@ class AdminController extends BaseController{
 	}
 
 	public function saveUser(){
-		//validation
-		$user = new User();
-		$user->first_name = Input::get('first_name');
-		$user->last_name = Input::get('last_name');
-		$user->address = Input::get('address');
-		$user->contact_number = Input::get('contact_number');
-		$rules = array(
-			'username' => 'required|min:5|unique:users',
-			'password' => 'required|confirmed|min:5',
-			'address' => 'required',
-			'first_name' => 'required',
-			'last_name' => 'required'
-		);
-		$validator = Validator::make(Input::all(),$rules);
+		$validator = $this->user->validate(Input::all());
 		if($validator->fails()){
 			return Redirect::to('admin/add-user')->withErrors($validator)->withInput(Input::all());
 		}else{
@@ -78,7 +71,7 @@ class AdminController extends BaseController{
 			$group = Sentry::findGroupById(Input::get('role'));
 			$user->addGroup($group);
 			//return to User-Maintenance Form
-			$roles = Group::all();
+			$roles = $this->group->all();
 			$arrayRole = array();
 			Session::flash('message','User Created Successful');
 			return Redirect::to('admin/user-maintenance');
@@ -88,10 +81,9 @@ class AdminController extends BaseController{
 	public function searchUser(){
 		$search_key = Input::get('search_key');
 		if($search_key == ''){
-			$users = User::paginate(10);
+			$users = $this->user->paginate(10);
 		}else{
-			$users = User::whereRaw('username = ? or first_name = ? or last_name = ?',
-				 array($search_key,$search_key,$search_key))->paginate(10);
+			$users = $this->user->advanceSearch($search_key);
 		}
 		return View::make('admin.user-maintenance')->with('users', $users);
 	}
@@ -100,17 +92,12 @@ class AdminController extends BaseController{
 		return View::make('admin.edit-user')->with('user',$user);
 	}
 	public function modifyUser($id){
-		$user = User::find($id);
+		$user = $this->user->find($id);
 		$user->first_name = Input::get('first_name');
 		$user->last_name = Input::get('last_name');
 		$user->address = Input::get('address');
 		$user->contact_number = Input::get('contact_number');
-		$rules = array(
-			'address' => 'required',
-			'first_name' => 'required',
-			'last_name' => 'required'
-		);
-		$validator = Validator::make(Input::all(),$rules);
+		$validator = $this->user->validateEdit(Input::all());
 		if($validator->fails()){
 			return Redirect::to('admin/edit-user/' . $id)->withErrors($validator)->withInput(Input::all());
 		}else{

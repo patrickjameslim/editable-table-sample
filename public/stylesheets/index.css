@@ -30,6 +30,10 @@ body {
 .index-container {
 	background: #fff;
 }
+
+.search {
+	margin: 20px 0;
+}
 .notif-container article {
 	border: 1px solid #ccc;
 	padding: 5px;

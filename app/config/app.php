@@ -122,7 +122,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
-		'Maatwebsite\Excel\ExcelServiceProvider'
+		'Maatwebsite\Excel\ExcelServiceProvider',
+		'Quezelco\Providers\UserServiceProvider',
+		'Quezelco\Providers\GroupServiceProvider'
 	),
 
 	/*
