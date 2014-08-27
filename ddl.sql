@@ -1,4 +1,3 @@
-create database ebillQuezelco;
 DROP TABLE tblUserAccount;
 CREATE TABLE tblUserAccount (
 id bigint(20) NOT NULL AUTO_INCREMENT,

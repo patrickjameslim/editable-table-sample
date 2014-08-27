@@ -8,17 +8,18 @@
 			<div class="col-md-8">
 					<h3>User Logs</h3>
 					
-					<div class="col-md-10">
+
 						<form role="form">
 						  <div class="form-group">
 						    <div class="input-group">
 						    	<div class="input-group-addon"><i class="fa fa-search"></i></div>
 						    	<input type="text" class="form-control" id="search-user-logs" placeholder="Search">
 						    </div>
+								<input type="submit" class="btn btn-primary search" value="Search">
 						  </div>
-						</form>
-						
-					<div class="table-responsive">
+						</form>	
+
+						<div class="table-responsive">
 							<table class="table table-striped">
 							<thead>
 								<th>Log Date</th>						
@@ -96,14 +97,10 @@
 							</tbody>
 						</table>
 					</div>
+					
 			</div>
-					</div>
 					
-					<div class="col-md-2">
-						<input type="submit" class="btn btn-primary" value="Search">
-					</div>
-
-					
+			
 			
 			<div class="col-md-4">
 				<h3>Notifications</h3>
@@ -131,5 +128,6 @@
 
 				</div>
 			</div>
+		</div>
 		</div>
 @stop

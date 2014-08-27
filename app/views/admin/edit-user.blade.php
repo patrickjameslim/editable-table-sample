@@ -23,7 +23,7 @@
 					{{Form::label('contact_number','Contact Number')}}
 					{{Form::text('contact_number')}}
 					<div class="large-5 columns options-right">
-						{{Form::submit('Add User',array('class' => 'tiny button add-customer'))}}
+						{{Form::submit('Update User',array('class' => 'tiny button add-customer'))}}
 					</div>
 			{{Form::close()}}
 		</div>

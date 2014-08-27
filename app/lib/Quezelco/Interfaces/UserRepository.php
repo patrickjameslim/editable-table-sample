@@ -8,4 +8,5 @@ interface UserRepository {
 	public function validate($inputs);
 	public function validateEdit($inputs);
 	public function advanceSearch($search_key);
+	public function update($user);
 }

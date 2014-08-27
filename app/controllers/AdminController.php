@@ -1,11 +1,16 @@
 <?php
+
 use Quezelco\Interfaces\UserRepository as User;
 use Quezelco\Interfaces\GroupRepository as Group;
+use Quezelco\Interfaces\AuthRepository as Auth;
+
+
 class AdminController extends BaseController{
 	private $consumerRole = "Consumer";
-	public function __construct(User $user, Group $group){
+	public function __construct(User $user, Group $group, Auth $auth){
 		$this->user = $user;
 		$this->group = $group;
+		$this->auth = $auth;
 	}
 
 	public function showIndex(){
@@ -58,15 +63,9 @@ class AdminController extends BaseController{
 			return Redirect::to('admin/add-user')->withErrors($validator)->withInput(Input::all());
 		}else{
 			//saving if validation is successful
-			$user = Sentry::register(array(
-				'username' => Input::get('username'),
-				'address' => Input::get('address'),
-				'password' => Input::get('password'),
-				'activated' => '1',
-				'first_name' => Input::get('first_name'),
-				'last_name' => Input::get('last_name'),
-				'contact_number' => Input::get('contact_number')
-			));
+			
+
+			$user = $this->auth->register(); 	
 
 			$group = Sentry::findGroupById(Input::get('role'));
 			$user->addGroup($group);
@@ -102,7 +101,7 @@ class AdminController extends BaseController{
 			return Redirect::to('admin/edit-user/' . $id)->withErrors($validator)->withInput(Input::all());
 		}else{
 			//saving if validation is successful
-			$user->save();
+			$this->user->update($user);
 			Session::flash('message','User Modified Successful');
 			return Redirect::to('admin/user-maintenance');
 		}

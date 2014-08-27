@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Manila',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -124,7 +124,8 @@ return array(
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Quezelco\Providers\UserServiceProvider',
-		'Quezelco\Providers\GroupServiceProvider'
+		'Quezelco\Providers\GroupServiceProvider',
+		'Quezelco\Providers\AuthServiceProvider'
 	),
 
 	/*

@@ -46,5 +46,9 @@ class EloquentUserRepository implements UserRepository{
 		return User::whereRaw('username = ? or first_name = ? or last_name = ?',
 				 array($search_key,$search_key,$search_key))->paginate(10);
 	}
+	
+	public function update($user){
+		$user->save();
+	}
 
 }
