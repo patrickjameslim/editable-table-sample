@@ -3,14 +3,16 @@
 use Quezelco\Interfaces\UserRepository as User;
 use Quezelco\Interfaces\GroupRepository as Group;
 use Quezelco\Interfaces\AuthRepository as Auth;
-
+use Quezelco\Interfaces\RatesRepository as Rates;
 
 class AdminController extends BaseController{
 	private $consumerRole = "Consumer";
-	public function __construct(User $user, Group $group, Auth $auth){
+
+	public function __construct(User $user, Group $group, Auth $auth, Rates $rates){
 		$this->user = $user;
 		$this->group = $group;
 		$this->auth = $auth;
+		$this->rates = $rates;
 	}
 
 	public function showIndex(){
@@ -43,9 +45,11 @@ class AdminController extends BaseController{
 	}
 
 	public function showWheelingRates(){
-		return View::make('admin.wheeling-rates');
+		$rate = $this->rates->getRates();
+		return View::make('admin.wheeling-rates')->with('rates',$rate);
 	}
 
+	/*User Maintenance*/
 	public function showAddUser(){
 		$roles = $this->group->all();
 		$arrayRole = array();
@@ -63,11 +67,8 @@ class AdminController extends BaseController{
 			return Redirect::to('admin/add-user')->withErrors($validator)->withInput(Input::all());
 		}else{
 			//saving if validation is successful
-			
-
-			$user = $this->auth->register(); 	
-
-			$group = Sentry::findGroupById(Input::get('role'));
+			$user = $this->auth->register(Input::all()); 
+			$group = $this->auth->findGroupById(Input::get('role'));
 			$user->addGroup($group);
 			//return to User-Maintenance Form
 			$roles = $this->group->all();
@@ -87,7 +88,7 @@ class AdminController extends BaseController{
 		return View::make('admin.user-maintenance')->with('users', $users);
 	}
 	public function showEditUser($search_key){
-		$user = Sentry::find($search_key);
+		$user = $this->auth->find($search_key);
 		return View::make('admin.edit-user')->with('user',$user);
 	}
 	public function modifyUser($id){
@@ -107,7 +108,7 @@ class AdminController extends BaseController{
 		}
 	}
 	public function activation($id){
-		$user = Sentry::findUserById($id);
+		$user = $this->auth->find($id);
 		if($user->activated == 0){
 			$user->activated = 1;
 		}else{
@@ -115,5 +116,17 @@ class AdminController extends BaseController{
 		}
 		$user->save();
 		return Redirect::to('admin/user-maintenance');
+	}
+
+	/*Wheeling Rates*/
+
+	public function saveWheelingRates(){
+		$validator = $this->rates->validate(Input::all());
+		if($validator->fails()){
+			return Redirect::to('admin/wheeling-rates')->withErrors($validator)->withInput(Input::all());
+		}else{
+			$this->rates->update(Input::all());
+		}
+		return Redirect::to('admin/wheeling-rates');
 	}
 }

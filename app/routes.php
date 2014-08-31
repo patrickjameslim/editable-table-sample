@@ -109,3 +109,4 @@ Route::get('/admin/activation-user/{id}','AdminController@activation');
 Route::post('/admin/add-user','AdminController@saveUser');
 Route::post('/admin/search-user','AdminController@searchUser');
 Route::get('/admin/edit-user/{search_key}','AdminController@showEditUser');
+Route::post('/admin/wheeling-rates','AdminController@saveWheelingRates');

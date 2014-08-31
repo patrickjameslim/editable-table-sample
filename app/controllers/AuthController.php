@@ -1,5 +1,11 @@
 <?php
+
+use Quezelco\Interfaces\AuthRepository as Auth;
 class AuthController extends BaseController{
+
+	public function __construct(Auth $auth){
+		$this->auth = $auth;
+	}
 
 	public function validateLogin(){
 		$username = Input::get('username');
@@ -8,13 +14,9 @@ class AuthController extends BaseController{
 		try{
 			$credentials = array('username' => $username,
 								 'password' => $password);
-			$user = Sentry::authenticate($credentials,false);
+			$user = $this->auth->authenticate($credentials);
 			$error = "";
-			if($user->inGroup(Sentry::findGroupByName('System Admin'))){
-				$returnUrl = 'admin/home';
-			}else if($user->inGroup(Sentry::findGroupByName('Cashier'))){
-				$returnUrl = 'cashier/home';
-			}
+			$returnUrl = $this->redirectToRoleUrl($user);
 			return Redirect::to($returnUrl);
 		}catch (Cartalyst\Sentry\Users\LoginRequiredException $e){
 		    $error = 'Username is required.';
@@ -32,7 +34,21 @@ class AuthController extends BaseController{
 	}
 
 	public function logout(){
-		Sentry::logout();
+		$this->auth->logout();
 		return View::make('login')->with('logout_message' ,'User Succesfully Logout');
+	}
+
+	public function redirectAlreadyLoggedIn(){
+		$user = $this->auth->getCurrentUser();
+		$returnUrl = $this->redirectToRoleUrl($user);
+		return Redirect::to($returnUrl);
+	}
+
+	public function redirectToRoleUrl($user){
+		if($user->inGroup($this->auth->findGroupByName('System Admin'))){
+			return 'admin/home';
+		}else if($user->inGroup($this->auth->findGroupByName('Cashier'))){
+			return 'cashier/home';
+		}
 	}
 }

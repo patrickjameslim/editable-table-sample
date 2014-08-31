@@ -125,7 +125,8 @@ return array(
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Quezelco\Providers\UserServiceProvider',
 		'Quezelco\Providers\GroupServiceProvider',
-		'Quezelco\Providers\AuthServiceProvider'
+		'Quezelco\Providers\AuthServiceProvider',
+		'Quezelco\Providers\RatesServiceProvider'
 	),
 
 	/*

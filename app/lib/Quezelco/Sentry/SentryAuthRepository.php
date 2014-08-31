@@ -6,15 +6,40 @@ use Input;
 use Quezelco\Interfaces\AuthRepository;
 
 class SentryAuthRepository implements AuthRepository{
-	public function register(){
+	
+	public function register($input){
 		return Sentry::register(array(
-				'username' => Input::get('username'),
-				'address' => Input::get('address'),
-				'password' => Input::get('password'),
+				'username' => $input['username'],
+				'address' => $input['address'],
+				'password' => $input['password'],
 				'activated' => '1',
-				'first_name' => Input::get('first_name'),
-				'last_name' => Input::get('last_name'),
-				'contact_number' => Input::get('contact_number')
+				'first_name' => $input['first_name'],
+				'last_name' => $input['last_name'],
+				'contact_number' => $input['contact_number']
 		));
+	}
+	
+	public function findGroupById($id){
+		return Sentry::findGroupById($id);
+	}
+
+	public function getCurrentUser(){
+		return Sentry::getUser();
+	}
+
+	public function authenticate($credentials){
+		return Sentry::authenticate($credentials,false);
+	}
+
+	public function findGroupByName($name){
+		return Sentry::findGroupByName($name);
+	}
+
+	public function logout(){
+		return Sentry::logout();
+	}
+
+	public function find($id){
+		return Sentry::find($id);
 	}
 } 
