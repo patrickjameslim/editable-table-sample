@@ -12,7 +12,7 @@ class UserTableSeeder extends Seeder{
 			'first_name' => 'JM',
 			'last_name' => 'Ramos',
 			'address' => '110 Brgy Coloong II Valenzuela City',
-			'contact_number' => '09054704478'
+			'contact_number' => '09054704478',
 		));
 
 		$group = Sentry::findGroupByName('System Admin');
@@ -25,7 +25,7 @@ class UserTableSeeder extends Seeder{
 			'first_name' => 'Patrick James',
 			'last_name' => 'Lim',
 			'address' => '47 Dr. Pio Valenzuela St. BBB Valenzuela City',
-			'contact_number' => '09158902345'
+			'contact_number' => '09158902345',
 		));
 
 		$group = Sentry::findGroupByName('Cashier');
@@ -38,7 +38,7 @@ class UserTableSeeder extends Seeder{
 			'first_name' => 'John Benedic',
 			'last_name' => 'Enriquez',
 			'address' => '97 Mahalimuyak St. New York Cubao, Quezon City',
-			'contact_number' => '091789152942'
+			'contact_number' => '091789152942',
 		));
 
 		$group = Sentry::findGroupByName('Area Manager');

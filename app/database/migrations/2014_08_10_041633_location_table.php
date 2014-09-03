@@ -12,6 +12,8 @@ class LocationTable extends Migration {
 	 */
 	public function up()
 	{
+		//do nothing -> shifted to users table
+
 		Schema::create('locations',function($table){
 			$table->increments('id');
 			$table->string('district');

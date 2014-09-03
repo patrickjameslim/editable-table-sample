@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RoutesTable extends Migration {
+class UserLocationTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,16 @@ class RoutesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('routes',function($table){
+		Schema::create('user_location',function($table){
 			$table->increments('id');
-			$table->string('route_code')->unique();
-			$table->string('route_name');
+			$table->integer('user_id')->unsigned();
 			$table->integer('location_id')->unsigned();
+			$table->timeStamps();
+			/*Adding basic indeces*/
+			$table->index('user_id');
 			$table->index('location_id');
+			/*Foreign Keys*/
+			$table->foreign('user_id')->references('id')->on('users');
 			$table->foreign('location_id')->references('id')->on('locations');
 		});
 	}
@@ -26,10 +30,10 @@ class RoutesTable extends Migration {
 	 * Reverse the migrations.
 	 *
 	 * @return void
-	 */ 	
+	 */
 	public function down()
 	{
-		Schema::dropIfExists('routes');
+		Schema::dropIfExists('user_location_table');
 	}
 
 }

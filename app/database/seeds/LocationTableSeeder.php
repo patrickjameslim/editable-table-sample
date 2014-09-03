@@ -1,15 +1,15 @@
 <?php
 class LocationTableSeeder extends Seeder{
 	public function run(){
-		Excel::load('location.csv',function($reader){
-			$reader->each(function($sheet) {
-		    	$sheet->each(function($row) {
-		    		$location = new Location();
-		    		$location->district = $row['district'];
-		    		$location->location_name = $row['location_name'];
-		    		$location->save();
-		    	});
-			});
-		});
+		$results = Excel::load('location.csv',function($reader){
+			
+		})->get()->toArray();
+		
+		foreach($results as $result){
+			$location = new Location();
+			$location->district = $result['district'];
+			$location->location_name = $result['location_name'];
+			$location->save();
+		}
 	}
 }
