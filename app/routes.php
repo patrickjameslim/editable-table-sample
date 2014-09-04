@@ -96,19 +96,19 @@ Route::post('/index','AuthController@validateLogin');
 Route::get('/admin/home','AdminController@showIndex');
 Route::get('/admin/logout','AuthController@logout');
 Route::get('/admin/report','AdminController@showReports');
-Route::get('/admin/user-maintenance','AdminController@showUserMaintenance');
-Route::get('/admin/add-customer','AdminController@showAddCustomer');
+Route::get('/admin/user-maintenance','UserMaintenanceController@showUserMaintenance');
+Route::get('/admin/add-customer','UserMaintenanceController@showAddCustomer');
 Route::get('/admin/billing','AdminController@showBilling');
 Route::get('/admin/cashier','AdminController@showCashier');
 Route::get('/admin/disconnected-bills','AdminController@showDisconnectedBills');
 Route::get('/admin/wheeling-rates','AdminController@showWheelingRates');
-Route::get('/admin/add-user','AdminController@showAddUser');
+Route::get('/admin/add-user','UserMaintenanceController@showAddUser');
 //crud ng users
-Route::put('/admin/update-user/{id}','AdminController@modifyUser');
-Route::get('/admin/activation-user/{id}','AdminController@activation');
-Route::post('/admin/add-user','AdminController@saveUser');
-Route::post('/admin/search-user','AdminController@searchUser');
-Route::get('/admin/edit-user/{search_key}','AdminController@showEditUser');
+Route::put('/admin/update-user/{id}','UserMaintenanceController@modifyUser');
+Route::get('/admin/activation-user/{id}','UserMaintenanceController@activation');
+Route::post('/admin/add-user','UserMaintenanceController@saveUser');
+Route::post('/admin/search-user','UserMaintenanceController@searchUser');
+Route::get('/admin/edit-user/{search_key}','UserMaintenanceController@showEditUser');
 Route::post('/admin/wheeling-rates','AdminController@saveWheelingRates');
 
 Route::get('/test','TestController@test');

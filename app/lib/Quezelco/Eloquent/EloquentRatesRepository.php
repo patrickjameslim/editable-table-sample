@@ -36,7 +36,7 @@ class EloquentRatesRepository implements RatesRepository{
 
 	public function validate($inputs){
 		$rules = array(
-			'generation_vat' => 'required|numeric',
+			'generation_system_charge' => 'required|numeric',
 			'transmission_system_charge' => 'required|numeric',
 			'system_loss_charge' =>  'required|numeric',
 			'dist_system_charge' => 'required|numeric',

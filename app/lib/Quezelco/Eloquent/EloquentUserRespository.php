@@ -4,8 +4,14 @@ namespace Quezelco\Eloquent;
 use User;
 use Validator;
 use Quezelco\Interfaces\UserRepository;
+use Quezelco\Interfaces\AuthRepository as Auth;
 
 class EloquentUserRepository implements UserRepository{
+
+	public function __construct(Auth $auth){
+		$this->auth = $auth;
+	}
+
 	public function all(){
 		return User::all();
 	}
@@ -19,7 +25,7 @@ class EloquentUserRepository implements UserRepository{
 	}
 
 	public function paginate($pages){
-		return User::paginate($pages);
+		return User::where('username','!=',$this->auth->getCurrentUser()->username)->paginate($pages);
 	}
 
 	public function validate($inputs){

@@ -9,16 +9,22 @@
 	<div class="container">
 		
 		<h2>Cashier</h2>
-		
 		<div class="col-md-12">
 			<div class="col-md-12">
-				<h6>OEBR</h6>
-				<input type="text" class="form-control">	
+				<h6>Account Number</h6>
+				{{Form::text('account_number','',array('class' => 'form-control'))}}
 			</div>
-
 			<div class="col-md-12">
 				<input type="submit" class="btn btn-primary" value="Search">
 			</div>
+			<div class="col-md-12">
+				<h6>OEBR</h6>
+				{{Form::text('oebr','',array('class' => 'form-control'))}}
+			</div>
+			<!--
+			<div class="col-md-12">
+				<input type="submit" class="btn btn-primary" value="Search">
+			</div>-->
 
 			<div class="col-md-4">
 				<h6>Last Name</h6>

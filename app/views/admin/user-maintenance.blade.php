@@ -52,11 +52,11 @@
 			      <th>Username</th>
 			      <th>First Name</th>
 			      <th>Last Name</th>
-			      <th>Address</th>
 			      <th>Contact Number</th>
 			      <th>Last Login</th>
 			      <th>Role</th>
 			      <th>Activated</th>
+			      <th>View</th>
 			      <th>Edit</th>
 			      <th>Deactivate</th>
 			    </tr>
@@ -68,9 +68,14 @@
 			      <td>{{$user->username}}</td>
 			      <td>{{$user->first_name}}</td>
 			      <td>{{$user->last_name}}</td>
-			      <td>{{$user->address}}</td>
 			      <td>{{$user->contact_number}}</td>
-			      <td>{{$user->last_login}}</td>
+			      <td> 
+			      	@if($user->last_login == null)
+						No logins yet
+			      	@else
+						{{$user->last_login}}
+			      	@endif
+			      </td>
 			      <td>{{Sentry::findUserByID($user->id)->getGroups()[0]->name}}</td>
 			      <td>
 			      	@if($user->activated == 1)
@@ -79,6 +84,9 @@
 			      		No
 			      	@endif
 			      </td>
+			      <td>
+						{{HTML::link('admin/view-user/' . $user->id,'View',array('style'=>'color:green'))}}
+				  </td>	
 			      <td>{{HTML::link('admin/edit-user/' . $user->id, 'Edit', array('style' => 'color:green'))}}</td>
 			      <td>
 					@if($user->activated == 1)
