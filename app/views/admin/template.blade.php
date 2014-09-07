@@ -40,7 +40,7 @@
 		      <li><a href="{{URL::to('admin/home')}}">Home</a></li>
 		      <li><a href="{{URL::to('admin/billing')}}">Billing</a></li>
 		      <li><a href="{{URL::to('admin/wheeling-rates')}}">Wheeling Rates</a></li>
-		      <li><a href="{{URL::to('admin/locations')}}">Locations</a></li>
+		      <li><a href="{{URL::to('admin/location')}}">Locations</a></li>
 		      <li><a href="{{URL::to('admin/routes')}}">Routes</a></li>
 		      <!--<li><a href="{{URL::to('admin/cashier')}}">Cashier</a></li>-->
 		      <li><a href="{{URL::to('admin/user-maintenance')}}">User Maintenance</a></li>

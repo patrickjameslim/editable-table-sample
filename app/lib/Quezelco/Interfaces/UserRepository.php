@@ -7,6 +7,6 @@ interface UserRepository {
 	public function paginate($pages);
 	public function validate($inputs);
 	public function validateEdit($inputs);
-	public function advanceSearch($search_key);
+	public function advanceSearch($searchKey);
 	public function update($user);
 }

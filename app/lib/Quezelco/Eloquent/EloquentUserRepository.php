@@ -48,9 +48,10 @@ class EloquentUserRepository implements UserRepository{
 		);
 		return Validator::make($inputs,$rules);
 	}
-	public function advanceSearch($search_key){
-		return User::whereRaw('username = ? or first_name = ? or last_name = ?',
-				 array($search_key,$search_key,$search_key))->paginate(10);
+	public function advanceSearch($searchKey){
+		$query = "%$searchKey%";	
+		return (User::whereRaw('username LIKE ? or first_name LIKE ? or last_name LIKE ? and username != ?',
+				 array($query,$query,$query,$this->auth->getCurrentUser()->username))->paginate(10));
 	}
 	
 	public function update($user){

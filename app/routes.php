@@ -112,3 +112,8 @@ Route::get('/admin/edit-user/{search_key}','UserMaintenanceController@showEditUs
 Route::post('/admin/wheeling-rates','AdminController@saveWheelingRates');
 
 Route::get('/test','TestController@test');
+Route::post('/admin/location/search','LocationController@search');
+
+/*Resource Controller*/
+Route::resource('admin/location','LocationController');
+Route::resource('admin/routes','RoutesController');
