@@ -21,7 +21,7 @@
 		<div class="row">
 		{{Form::open(array('url' => 'admin/location/search'))}}
 			<div class="col-md-7 options-left">
-					<div class="form-group">
+				<div class="form-group">
 						<div class="col-md-9">
 							  <div class="form-group">
 							    <div class="input-group">
@@ -39,28 +39,6 @@
 							{{Form::close()}}
 						</div>
 					</div>
-					{{Form::open(array('url' => 'admin/location'))}}
-					<div class="form-group">
-						<div class="col-md-5">
-							<h6>District Name</h6>
-							{{Form::text('district_name','',array('class' => 'form-control'))}}
-							<div class="error">{{$errors->first('district_name')}}</div>
-						</div>
-
-						<div class="col-md-5">
-							<h6>Location Name </h6>
-							{{Form::text('location_name','',array('class' => 'form-control'))}}
-							<div class="error">{{$errors->first('location_name')}}</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-8">
-							{{Form::submit('Add Location',array('class' => 'btn btn-primary'))}}
-						</div>
-						{{Form::close()}}
-					</div>
-				</div>
-			<div class="col-md-5 options-left">
 				<div class="row">
 					<table class="responsive">
 					  <thead>
@@ -88,9 +66,30 @@
 					</table>
 					{{$locations->links()}}
 				</div>
+					
+				</div>
+			<div class="col-md-5 options-left">
+					{{Form::open(array('url' => 'admin/location'))}}
+					<div class="form-group">
+						<div class="col-md-5">
+							<h6>District Name</h6>
+							{{Form::text('district_name','',array('class' => 'form-control'))}}
+							<div class="error">{{$errors->first('district_name')}}</div>
+						</div>
+
+						<div class="col-md-5">
+							<h6>Location Name </h6>
+							{{Form::text('location_name','',array('class' => 'form-control'))}}
+							<div class="error">{{$errors->first('location_name')}}</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-8">
+							{{Form::submit('Add Location',array('class' => 'btn btn-primary'))}}
+						</div>
+						{{Form::close()}}
+					</div>
 			</div>
 		</div>
-
-		
 	</div>
 @stop

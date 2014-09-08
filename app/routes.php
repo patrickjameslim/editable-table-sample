@@ -113,6 +113,7 @@ Route::post('/admin/wheeling-rates','AdminController@saveWheelingRates');
 
 Route::get('/test','TestController@test');
 Route::post('/admin/location/search','LocationController@search');
+Route::post('/admin/routes/search','RoutesController@search');
 
 /*Resource Controller*/
 Route::resource('admin/location','LocationController');

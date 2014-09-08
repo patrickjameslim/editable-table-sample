@@ -10,4 +10,5 @@ interface LocationRepository{
 	public function search($searchKey);
 	public function getRoutes($location);
 	public function paginate($location);
+	public function getAllPaginated();
 }

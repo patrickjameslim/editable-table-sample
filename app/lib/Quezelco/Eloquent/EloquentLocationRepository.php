@@ -12,7 +12,7 @@
  	}
 
  	public function all(){
- 		return Location::paginate($this->recordsPerPage);
+ 		return Location::all();
  	}
 
  	public function add($inputs){
@@ -40,5 +40,9 @@
 
  	public function paginate($location){
  		return $location->paginate($this->recordsPerPage);
+ 	}
+
+ 	public function getAllPaginated(){
+ 		return Location::paginate($this->recordsPerPage);
  	}
  }

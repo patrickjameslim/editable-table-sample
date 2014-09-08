@@ -15,7 +15,7 @@ class LocationController extends \BaseController {
 	 */
 	public function index()
 	{
-		$locations = $this->location->all();
+		$locations = $this->location->getAllPaginated();
 		return View::make('admin.location.index')->with('locations',$locations);
 	}
 
@@ -91,13 +91,22 @@ class LocationController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$location = $this->location->find($id);
-		$location->district = Input::get('district');
-		$location->location_name = Input::get('location_name');
-		$this->location->update($location);
 
-		Session::flash('message','Location Updated Successfuly');
-		return Redirect::to('admin/location/');
+		$rules = array('district' => 'required',
+					   'location_name' => 'required');
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()){
+			return Redirect::to('admin/location/' . $id . '/edit')->withErrors($validator);
+		}else{
+			$location = $this->location->find($id);
+			$location->district = strtoupper(Input::get('district'));
+			$location->location_name = strtoupper(Input::get('location_name'));
+			$this->location->update($location);
+
+			Session::flash('message','Location Updated Successfuly');
+			return Redirect::to('admin/location/');
+		}
 	}
 
 

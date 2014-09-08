@@ -22,9 +22,9 @@ use Quezelco\Interfaces\RoutesRepository;
 
  	public function create($inputs){
  		$route = new QRoute();
- 		$route->route_code = $inputs['route_code'];
- 		$route->route_name = $inputs['route_name'];
- 		$route->location_id = $inputs['location_id'];
+ 		$route->route_code = strtoupper($inputs['route_code']);
+ 		$route->route_name = strtoupper($inputs['route_name']);
+ 		$route->location_id = strtoupper($inputs['location_id']);
 
  		$route->save();
  	}
@@ -35,7 +35,7 @@ use Quezelco\Interfaces\RoutesRepository;
 
  	public function search($searchKey){
  		$newKey = "%$searchKey%";
- 		return QRoute::whereRaw('route_code LIKE ? OR route_name LIKE ?',array($newKey, $newKey))->paginate(10);
+ 		return QRoute::whereRaw('route_code LIKE ? OR route_name LIKE ?',array($newKey, $newKey))->paginate($this->recordsPerPage);
  	}
 
  	public function paginate($routes){

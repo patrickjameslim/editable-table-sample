@@ -13,7 +13,7 @@
 			{{Form::model($location,array('url' => 'admin/location/' . $location->id, 'method' => 'put'))}}
 					{{Form::label('district','District Name')}}
 					{{Form::text('district')}}
-					<div class="error">{{$errors->first('district_name')}}</div>
+					<div class="error">{{$errors->first('district')}}</div>
 
 					{{Form::label('location_name','Location Name')}}
 					{{Form::text('location_name')}}

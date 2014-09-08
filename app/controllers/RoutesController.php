@@ -1,11 +1,14 @@
 <?php
 
 use Quezelco\Interfaces\RoutesRepository as QRoutes;
+use Quezelco\Interfaces\LocationRepository as Location;
+
 class RoutesController extends \BaseController {
 
 
-	public function __construct(QRoutes $route){
+	public function __construct(QRoutes $route, Location $location){
 		$this->routes = $route;
+		$this->location = $location;
 	}
 
 	/**
@@ -16,7 +19,8 @@ class RoutesController extends \BaseController {
 	public function index()
 	{
 		$routes = $this->routes->all();
-		return View::make('admin.routes.index')->with('routes',$routes);
+		$locations = $this->setLocationDropDown();
+		return View::make('admin.routes.index')->with('routes',$routes)->with('locations',$locations);
 	}
 
 
@@ -38,7 +42,16 @@ class RoutesController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$rules = array('route_code'=>'required',
+					   'route_name' => 'required');
+		$validator = Validator::make(Input::all(),$rules);
+		if($validator->fails()){
+			return Redirect::to('admin/routes')->withErrors($validator);
+		}else{
+			$this->routes->create(Input::all());
+			Session::flash('message','Route Successfuly Added');
+			return Redirect::to('admin/routes');
+		}
 	}
 
 
@@ -62,7 +75,10 @@ class RoutesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$route = $this->routes->find($id);
+		$locations = $this->setLocationDropDown();
+		return View::make('admin.routes.edit')->with('route',$route)->with('locations',$locations);
+
 	}
 
 
@@ -74,7 +90,21 @@ class RoutesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$route = $this->routes->find($id);
+		$rules = array('route_code' => 'required',
+					   'route_name' => 'required');
+		$validator = Validator::make(Input::all(),$rules);
+
+		if($validator->fails()){
+			return Redirect::to('admin/routes/'. $id . '/edit')->withErrors($validator)->withInput(Input::all());
+		}else{
+			$route = $this->routes->find($id);
+			$route->route_code = strtoupper(Input::get('route_code'));
+			$route->route_name = strtoupper(Input::get('route_name'));
+			$this->routes->update($route);
+			Session::flash('message','Route Successfuly Updated');
+			return Redirect::to('admin/routes');
+		}
 	}
 
 
@@ -89,5 +119,21 @@ class RoutesController extends \BaseController {
 		//
 	}
 
+	public function search(){
+		$searchKey = Input::get('search_key');
+		$routes = $this->routes->search($searchKey);
 
+		$locations = $this->setLocationDropDown();
+		return View::make('admin.routes.index')->with('routes',$routes)->with('locations',$locations);
+	}
+
+	private function setLocationDropDown(){
+		$locations = $this->location->all();
+		$arrayLocation = array();
+		foreach ($locations as $location) {
+			$arrayLocation[$location->id] = $location->location_name; 
+		}
+
+		return $arrayLocation;
+	}
 }
