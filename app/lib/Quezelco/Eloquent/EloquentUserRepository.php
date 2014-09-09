@@ -3,6 +3,7 @@ namespace Quezelco\Eloquent;
 
 use User;
 use Validator;
+use UserLocation;
 use Quezelco\Interfaces\UserRepository;
 use Quezelco\Interfaces\AuthRepository as Auth;
 

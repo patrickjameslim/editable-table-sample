@@ -56,6 +56,7 @@
 			      <th>Last Login</th>
 			      <th>Role</th>
 			      <th>Activated</th>
+			      <th>Location</th>
 			      <th>View</th>
 			      <th>Edit</th>
 			      <th>Deactivate</th>
@@ -85,12 +86,20 @@
 			      	@endif
 			      </td>
 			      <td>
-						{{HTML::link('admin/view-user/' . $user->id,'View',array('style'=>'color:green'))}}
+			      	@foreach($user->locations() as $location)
+						Chickennn
+						<ul>
+							<li>$location->first()->location_name</li>
+						</ul>
+			      	@endforeach
+			      </td>
+			      <td>
+						{{HTML::link('admin/view-user/' . $user->id,'Add Location',array('style'=>'color:green'))}}
 				  </td>	
 			      <td>{{HTML::link('admin/edit-user/' . $user->id, 'Edit', array('style' => 'color:green'))}}</td>
 			      <td>
 					@if($user->activated == 1)
-			      		{{HTML::link('admin/activation-user/' . $user->id, 'Dectivate', array('style' => 'color:green'))}}
+			      		{{HTML::link('admin/activation-user/' . $user->id, 'Deactivate', array('style' => 'color:green'))}}
 			      	@else
 			      		{{HTML::link('admin/activation-user/' . $user->id, 'Activate', array('style' => 'color:green'))}}
 			      	@endif

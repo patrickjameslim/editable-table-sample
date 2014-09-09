@@ -85,7 +85,7 @@
 						</div>
 						<div class="col-md-8">
 							<h6>Location</h6>
-							{{Form::select('location_id',$locations, array('class' => 'form=-control'))}}
+							{{Form::select('location_id',$locations, array('class' => 'form-control'))}}
 							
 						</div>
 					</div>

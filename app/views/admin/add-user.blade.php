@@ -1,5 +1,4 @@
 @extends('admin.template')
-
 @section('content')
 	<div class="container">
 		<div class="row billing-title">
@@ -32,6 +31,8 @@
 					{{Form::text('contact_number',Input::old('contact_number'))}}
 					{{Form::label('role','Role')}}
 					{{Form::select('role',$roles)}}
+					{{Form::label('location','Location/Designation')}}
+					{{Form::select('location',$locations)}}
 					<div class="large-5 columns options-right">
 						{{Form::submit('Add User',array('class' => 'tiny button add-customer'))}}
 					</div>

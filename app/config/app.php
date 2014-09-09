@@ -128,7 +128,8 @@ return array(
 		'Quezelco\Providers\AuthServiceProvider',
 		'Quezelco\Providers\RatesServiceProvider',
 		'Quezelco\Providers\LocationServiceProvider',
-		'Quezelco\Providers\QRoutesServiceProvider'
+		'Quezelco\Providers\QRoutesServiceProvider',
+		'Quezelco\Providers\UserLocationServiceProvider'
 	),
 
 	/*

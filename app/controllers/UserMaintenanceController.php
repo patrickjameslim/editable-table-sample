@@ -3,15 +3,19 @@
 use Quezelco\Interfaces\UserRepository as User;
 use Quezelco\Interfaces\GroupRepository as Group;
 use Quezelco\Interfaces\AuthRepository as Auth;
+use Quezelco\Interfaces\LocationRepository as Location;
+use Quezelco\Interfaces\UserLocationRepository as UserLocationRepository;
 
 class UserMaintenanceController extends BaseController{
 
-	private $consumerRole = "Consumer";
+	private $consumerRole = "NONE";
 
-	public function __construct(User $user, Group $group, Auth $auth){
+	public function __construct(User $user, Group $group, Auth $auth, Location $location, UserLocationRepository $userLocation){
 		$this->user = $user;
 		$this->group = $group;
 		$this->auth = $auth;
+		$this->location = $location;
+		$this->userLocation = $userLocation;
 	}
 
 	public function showUserMaintenance(){
@@ -21,13 +25,20 @@ class UserMaintenanceController extends BaseController{
 
 	public function showAddUser(){
 		$roles = $this->group->all();
+		$locations = $this->location->all();
+
+		$arrayLocation = array();
 		$arrayRole = array();
 		foreach ($roles as $role) {
 			if($role->name != $this->consumerRole){
 				$arrayRole[$role->id] = $role->name; 
 			}
 		}
-		return View::make('admin.add-user')->with('roles',$arrayRole);
+
+		foreach($locations as $location){
+			$arrayLocation[$location->id] = $location->location_name;
+		}
+		return View::make('admin.add-user')->with('roles',$arrayRole)->with('locations',$arrayLocation);
 	}
 
 	public function saveUser(){
@@ -36,9 +47,12 @@ class UserMaintenanceController extends BaseController{
 			return Redirect::to('admin/add-user')->withErrors($validator)->withInput(Input::all());
 		}else{
 			//saving if validation is successful
-			$user = $this->auth->register(Input::all()); 
+			$user = $this->auth->register(Input::all());
 			$group = $this->auth->findGroupById(Input::get('role'));
 			$user->addGroup($group);
+
+			//saving to location
+			$this->userLocation->addToLocation($user->id,Input::get('location'));
 			//return to User-Maintenance Form
 			$roles = $this->group->all();
 			$arrayRole = array();
