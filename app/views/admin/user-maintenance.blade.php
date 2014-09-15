@@ -86,15 +86,16 @@
 			      	@endif
 			      </td>
 			      <td>
-			      	@foreach($user->locations() as $location)
-						Chickennn
+			      	@foreach($user->locations as $location)	
 						<ul>
-							<li>$location->first()->location_name</li>
+							<li>{{$location->location_name}}</li>
 						</ul>
 			      	@endforeach
 			      </td>
 			      <td>
-						{{HTML::link('admin/view-user/' . $user->id,'Add Location',array('style'=>'color:green'))}}
+			      		@if(Sentry::findUserByID($user->id)->getGroups()[0]->name == 'Area Manager')
+							{{HTML::link('admin/add-location/' . $user->id,'Add Location',array('style'=>'color:green'))}}
+			      		@endif
 				  </td>	
 			      <td>{{HTML::link('admin/edit-user/' . $user->id, 'Edit', array('style' => 'color:green'))}}</td>
 			      <td>

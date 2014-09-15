@@ -26,7 +26,7 @@ class EloquentUserRepository implements UserRepository{
 	}
 
 	public function paginate($pages){
-		return User::where('username','!=',$this->auth->getCurrentUser()->username)->paginate($pages);
+		return User::with('locations')->where('username','!=',$this->auth->getCurrentUser()->username)->paginate($pages);
 	}
 
 	public function validate($inputs){
@@ -51,7 +51,7 @@ class EloquentUserRepository implements UserRepository{
 	}
 	public function advanceSearch($searchKey){
 		$query = "%$searchKey%";	
-		return (User::whereRaw('username LIKE ? or first_name LIKE ? or last_name LIKE ? and username != ?',
+		return (User::with('locations')->whereRaw('username LIKE ? or first_name LIKE ? or last_name LIKE ? and username != ?',
 				 array($query,$query,$query,$this->auth->getCurrentUser()->username))->paginate(10));
 	}
 	

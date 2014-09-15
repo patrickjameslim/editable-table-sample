@@ -22,6 +22,10 @@
 					<div class="error">{{$errors->first('address')}}</div>
 					{{Form::label('contact_number','Contact Number')}}
 					{{Form::text('contact_number')}}
+					{{Form::label('role','Role')}}
+					{{Form::select('role',$roles)}}
+					{{Form::label('location','Location/Designation')}}
+					{{Form::select('location',$locations)}}
 					<div class="large-5 columns options-right">
 						{{Form::submit('Update User',array('class' => 'tiny button add-customer'))}}
 					</div>

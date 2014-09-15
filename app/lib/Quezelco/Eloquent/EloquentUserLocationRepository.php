@@ -12,4 +12,8 @@ class EloquentUserLocationRepository implements UserLocationRepository{
 
 		$userLocation->save();
 	}
+
+	public function reset($user){
+		UserLocation::where('user_id', '=', $user->id)->delete();
+	}
 }

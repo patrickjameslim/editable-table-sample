@@ -71,8 +71,23 @@ class UserMaintenanceController extends BaseController{
 		return View::make('admin.user-maintenance')->with('users', $users);
 	}
 	public function showEditUser($search_key){
+		$roles = $this->group->all();
+		$locations = $this->location->all();
+
+		$arrayLocation = array();
+		$arrayRole = array();
+		foreach ($roles as $role) {
+			if($role->name != $this->consumerRole){
+				$arrayRole[$role->id] = $role->name; 
+			}
+		}
+
+		foreach($locations as $location){
+			$arrayLocation[$location->id] = $location->location_name;
+		}
+
 		$user = $this->auth->find($search_key);
-		return View::make('admin.edit-user')->with('user',$user);
+		return View::make('admin.edit-user')->with('user',$user)->with('roles',$arrayRole)->with('locations',$arrayLocation);
 	}
 	public function modifyUser($id){
 		$user = $this->user->find($id);
@@ -85,7 +100,11 @@ class UserMaintenanceController extends BaseController{
 			return Redirect::to('admin/edit-user/' . $id)->withErrors($validator)->withInput(Input::all());
 		}else{
 			//saving if validation is successful
+
 			$this->user->update($user);
+			$this->userLocation->reset($user);
+			$this->userLocation->addToLocation($user->id, Input::get('location'));
+			$this->group->updateGroup($this->auth->find($user->id), Input::get('role'));
 			Session::flash('message','User Modified Successful');
 			return Redirect::to('admin/user-maintenance');
 		}
