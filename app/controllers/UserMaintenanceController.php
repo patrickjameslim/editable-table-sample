@@ -73,19 +73,15 @@ class UserMaintenanceController extends BaseController{
 	public function showEditUser($search_key){
 		$roles = $this->group->all();
 		$locations = $this->location->all();
-
 		$arrayLocation = array();
 		$arrayRole = array();
 		foreach ($roles as $role) {
-			if($role->name != $this->consumerRole){
 				$arrayRole[$role->id] = $role->name; 
-			}
 		}
 
 		foreach($locations as $location){
 			$arrayLocation[$location->id] = $location->location_name;
 		}
-
 		$user = $this->auth->find($search_key);
 		return View::make('admin.edit-user')->with('user',$user)->with('roles',$arrayRole)->with('locations',$arrayLocation);
 	}
@@ -117,6 +113,21 @@ class UserMaintenanceController extends BaseController{
 			$user->activated = 0;
 		}
 		$user->save();
+		return Redirect::to('admin/user-maintenance');
+	}
+
+	public function showAddLocation($id){
+		$user = $this->user->find($id);
+		$locations = $this->location->all();
+		foreach($locations as $location){
+			$arrayLocation[$location->id] = $location->location_name;
+		}
+		return View::make('admin.user-add-location')->with('user',$user)->with('locations',$arrayLocation);
+	}
+
+	public function addLocationToUser($id){
+		$location = Input::get('location');
+		$this->userLocation->addToLocation($id, $location);
 		return Redirect::to('admin/user-maintenance');
 	}
 }

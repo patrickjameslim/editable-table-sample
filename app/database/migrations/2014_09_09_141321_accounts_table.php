@@ -19,6 +19,8 @@ class AccountsTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->integer('location_id')->unsigned();
 			$table->string('billing_address');
+			$table->decimal('currentReading',10,5);
+			$table->decimal('previousReading',10,5);
 
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->foreign('location_id')->references('id')->on('locations');

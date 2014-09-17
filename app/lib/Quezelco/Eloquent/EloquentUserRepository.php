@@ -3,6 +3,7 @@ namespace Quezelco\Eloquent;
 
 use User;
 use Validator;
+use Group;
 use UserLocation;
 use Quezelco\Interfaces\UserRepository;
 use Quezelco\Interfaces\AuthRepository as Auth;
@@ -56,7 +57,19 @@ class EloquentUserRepository implements UserRepository{
 	}
 	
 	public function update($user){
-		$user->save();
+		return $user->save();
+	}
+
+	public function getAllCustomers(){
+		return Group::customers();
+	}
+
+	public function findCustomer($id){
+		return Group::findCustomer($id);
+	}
+
+	public function enterReading($inputs){
+
 	}
 
 }

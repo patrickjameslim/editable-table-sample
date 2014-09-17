@@ -28,4 +28,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function locations(){
 		return $this->belongsToMany('Location','user_location');
 	}
+
+	public function route(){
+		return $this->hasOne('QRoute','routes');
+	}
 }

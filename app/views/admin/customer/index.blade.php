@@ -8,7 +8,7 @@
 	<div class="container">
 		<div class="row billing-title">
 			<div class="col-md-12 column">
-				<h2>User Maintenance</h2>
+				<h2>Customer Enrollment</h2>
 			</div>
 		</div>
 		@if(Session::has('message'))
@@ -19,7 +19,7 @@
 			</div>
 		@endif
 		<div class="row">
-		{{Form::open(array('url' => 'admin/search-user'))}}
+		{{Form::open(array('url' => 'admin/search-customer'))}}
 			<div class="col-md-7 options-left">
 				<form role="form" action="">
 					<div class="form-group">
@@ -39,9 +39,6 @@
 					</div>
 				</div>
 			{{Form::close()}}
-			<div class="col-md-5 options-left">
-				<div class="btn btn-primary"><a href="{{URL::to('admin/add-user')}}"><i class="fa fa-plus"></i> Add User</a></div>
-			</div>
 		</div>
 
 		<div class="row">
@@ -53,12 +50,9 @@
 			      <th>First Name</th>
 			      <th>Last Name</th>
 			      <th>Contact Number</th>
-			      <th>Last Login</th>
-			      <th>Role</th>
-			      <th>Activated</th>
-			      <th>Location</th>
-			      <th>Action</th>
-			      <th>Edit</th>
+			      <th>Status</th>
+			      <th>Location/District</th>
+			      <th>Route/Brgy</th>
 			      <th>Deactivate</th>
 			    </tr>
 			  </thead>
@@ -70,34 +64,23 @@
 			      <td>{{$user->first_name}}</td>
 			      <td>{{$user->last_name}}</td>
 			      <td>{{$user->contact_number}}</td>
-			      <td> 
-			      	@if($user->last_login == null)
-						No logins yet
-			      	@else
-						{{$user->last_login}}
-			      	@endif
-			      </td>
-			      <td>{{Sentry::findUserByID($user->id)->getGroups()[0]->name}}</td>
 			      <td>
 			      	@if($user->activated == 1)
-			      		Yes
+			      		Connected
 			      	@else
-			      		No
+			      		Disconnected
 			      	@endif
 			      </td>
 			      <td>
 			      	@foreach($user->locations as $location)	
-						<ul>
-							<li>{{$location->location_name}}</li>
-						</ul>
+						{{$location->location_name}}
 			      	@endforeach
 			      </td>
 			      <td>
-			      		@if(Sentry::findUserByID($user->id)->getGroups()[0]->name == 'Area Manager')
-							{{HTML::link('admin/add-location/' . $user->id,'Add Location',array('style'=>'color:green'))}}
-			      		@endif
-				  </td>	
-			      <td>{{HTML::link('admin/edit-user/' . $user->id, 'Edit', array('style' => 'color:green'))}}</td>
+			      	@foreach($user->routes as $route)
+						{{$route->route_name}}
+			      	@endforeach
+			      </td>
 			      <td>
 					@if($user->activated == 1)
 			      		{{HTML::link('admin/activation-user/' . $user->id, 'Deactivate', array('style' => 'color:green'))}}

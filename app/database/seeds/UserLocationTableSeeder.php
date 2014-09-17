@@ -7,5 +7,15 @@ class UserLocationTableSeeder extends Seeder {
 		$user_location->location_id = 1;
 		$user_location->save();
 
+		$user_location = new UserLocation();
+		$user_location->user_id = 1;
+		$user_location->location_id = 2;
+		$user_location->save();
+
+		$user_location = new UserLocation();
+		$user_location->user_id = 2;
+		$user_location->location_id = 1;
+		$user_location->save();
+
 	}
 }

@@ -2,6 +2,7 @@
 namespace Quezelco\Eloquent;
 use Group;
 use Sentry;
+use UserGroups;
 use Quezelco\Interfaces\GroupRepository;
 class EloquentGroupRepository implements GroupRepository{
 	public function all(){
@@ -9,7 +10,7 @@ class EloquentGroupRepository implements GroupRepository{
 	}
 
 	public function updateGroup($user, $groupId){
-		Group::where('user_id', '=', $user->id)->delete();
+		UserGroups::where('user_id', '=', $user->id)->delete();
 		$user->addGroup(Sentry::findGroupById($groupId));
 	}
 }

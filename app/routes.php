@@ -114,6 +114,8 @@ Route::post('/admin/wheeling-rates','AdminController@saveWheelingRates');
 Route::get('/test','TestController@test');
 Route::post('/admin/location/search','LocationController@search');
 Route::post('/admin/routes/search','RoutesController@search');
+Route::get('/admin/add-location/{userId}','UserMaintenanceController@showAddLocation');
+Route::post('/admin/add-location/{userId}', 'UserMaintenanceController@addLocationToUser');
 
 /*Resource Controller*/
 Route::resource('admin/location','LocationController');
