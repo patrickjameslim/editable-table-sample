@@ -16,10 +16,11 @@ class BillTable extends Migration {
 			$table->increments('id');
 			$table->integer('account_id')->unsigned();
 			$table->string('oebr_number');
-			$table->string('current_bill_amount');
+			$table->decimal('current_bill_amount',10,5);
 			$table->date('start_date');
 			$table->date('end_date');
 			$table->string('bill_status');
+			$table->timestamps();
 		});
 	}
 

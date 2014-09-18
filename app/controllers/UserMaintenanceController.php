@@ -130,4 +130,5 @@ class UserMaintenanceController extends BaseController{
 		$this->userLocation->addToLocation($id, $location);
 		return Redirect::to('admin/user-maintenance');
 	}
+
 }

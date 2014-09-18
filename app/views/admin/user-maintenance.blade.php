@@ -95,6 +95,8 @@
 			      <td>
 			      		@if(Sentry::findUserByID($user->id)->getGroups()[0]->name == 'Area Manager')
 							{{HTML::link('admin/add-location/' . $user->id,'Add Location',array('style'=>'color:green'))}}
+						@elseif(Sentry::findUserById($user->id)->getGroups()[0]->name == 'Consumer')
+							{{HTML::link('admin/add-account/' . $user->id,'Add Accounts',array('style'=>'color:green'))}}
 			      		@endif
 				  </td>	
 			      <td>{{HTML::link('admin/edit-user/' . $user->id, 'Edit', array('style' => 'color:green'))}}</td>

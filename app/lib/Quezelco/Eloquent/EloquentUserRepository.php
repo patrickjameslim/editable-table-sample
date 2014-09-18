@@ -67,9 +67,4 @@ class EloquentUserRepository implements UserRepository{
 	public function findCustomer($id){
 		return Group::findCustomer($id);
 	}
-
-	public function enterReading($inputs){
-
-	}
-
 }
