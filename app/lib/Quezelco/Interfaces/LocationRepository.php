@@ -11,4 +11,5 @@ interface LocationRepository{
 	public function getRoutes($location);
 	public function paginate($location);
 	public function getAllPaginated();
+	public function getAllRoutes($location_id);
 }

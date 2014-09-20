@@ -9,7 +9,4 @@ interface UserRepository {
 	public function validateEdit($inputs);
 	public function advanceSearch($searchKey);
 	public function update($user);
-	public function getAllCustomers();
-	public function findCustomer($id);
-	public function enterReading($inputs);
 }

@@ -7,15 +7,24 @@ use User;
 
 class EloquentAccountRepository implements AccountRepository{
 
+	private $recordsPerPage = 15;
+
+	public function search($searchKey){
+		$query = "%$searchKey%";	
+		return Account::whereRaw('account_number LIKE ? or meter_number LIKE ? or billing_address LIKE ?',
+				 array($query,$query,$query))->paginate($this->recordsPerPage);
+	}
+
 	public function addAccountToConsumer($user, $inputs){
-		$account = new Account;
-		$account->user_id = $inputs['user_id'];
+		$account = new Account();
+		$account->user_id = $user->id;
 		$account->account_number = $inputs['account_number'];
 		$account->route_id = $inputs['route_id'];
 		$account->meter_number = $inputs['meter_number'];
 		$account->billing_address = $inputs['billing_address'];
-		$account->current_reading = $inputs['current_reading'];
-		$account->previous_reading = $inputs['previous_reading'];
+		$account->current_reading = 0;
+		$account->previous_reading = 0;
+		$account->status = 1;
 		$account->save();
 	}
 
@@ -30,11 +39,12 @@ class EloquentAccountRepository implements AccountRepository{
 		return Account::all();
 	}
 
-	public function search($key){
-		return Account::with('users')->whereRaw('account_number LIKE ? or meter_number LIKE ?',array($key,$key));
-	}
 
 	public function find($id){
 		return Account::find($id);
+	}
+
+	public function paginate(){
+		return Account::paginate($this->recordsPerPage);
 	}
 }

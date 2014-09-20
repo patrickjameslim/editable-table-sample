@@ -1,6 +1,7 @@
 <?php
  namespace Quezelco\Eloquent;
  use Location;
+ use QRoute;
  use Quezelco\Interfaces\LocationRepository;
  
  class EloquentLocationRepository implements LocationRepository{
@@ -45,4 +46,9 @@
  	public function getAllPaginated(){
  		return Location::paginate($this->recordsPerPage);
  	}
+
+ 	public function getAllRoutes($location_id){
+ 		return QRoute::where('location_id','=',$location_id)->get();
+ 	}
+
  }

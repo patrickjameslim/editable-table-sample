@@ -94,3 +94,13 @@ a:hover {
 .notification{
 	color:#26A65B;
 }
+.ok{
+	font-size:13px;
+	color:green;
+}
+.normal{
+	font-size:13px;
+}
+.normal td{
+	font-size:13px;
+}

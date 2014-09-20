@@ -2,6 +2,8 @@
 namespace 
 use Quezelco\Interfaces\BillRepository;
 class EloquentBillRepository implements BillRepository{
+	private $recordsPerPage = 15;
+	
 	public function find($id){
 		return Bill::find($id);
 	}
@@ -14,5 +16,13 @@ class EloquentBillRepository implements BillRepository{
 		$bill->start_date = $inputs['start_date'];
 		$bill->end_date = $inputs['end_date'];
 		$bill->save();
+	}
+
+	public function all(){
+		return Bill::all();
+	}
+
+	public function paginate(){
+		return Bill::paginate($this->recordsPerPage);
 	}
 }

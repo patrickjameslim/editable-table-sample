@@ -64,7 +64,7 @@
 			  </thead>
 			  <tbody>
 			  @foreach($users as $user)
-			    <tr>
+			    <tr class = "normal">
 			      <td>{{$user->id}}</td>
 			      <td>{{$user->username}}</td>
 			      <td>{{$user->first_name}}</td>
@@ -88,7 +88,7 @@
 			      <td>
 			      	@foreach($user->locations as $location)	
 						<ul>
-							<li>{{$location->location_name}}</li>
+							<li class = "normal">{{$location->location_name}}</li>
 						</ul>
 			      	@endforeach
 			      </td>

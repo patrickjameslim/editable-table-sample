@@ -19,7 +19,7 @@
 			</div>
 		@endif
 		<div class="row">
-		{{Form::open(array('url' => 'admin/search-customer'))}}
+		{{Form::open(array('url' => 'admin/account/search'))}}
 			<div class="col-md-7 options-left">
 				<form role="form" action="">
 					<div class="form-group">
@@ -44,55 +44,43 @@
 		<div class="row">
 			<table class="responsive">
 			  <thead>
-			    <tr>
+			    <tr class = "normal">
 			      <th>#</th>
-			      <th>Username</th>
+			      <th>Account Number</th>
+			      <th>Meter Number</th>
 			      <th>First Name</th>
 			      <th>Last Name</th>
-			      <th>Contact Number</th>
+			      <th>Brgy</th>
 			      <th>Status</th>
-			      <th>Location/District</th>
-			      <th>Route/Brgy</th>
-			      <th>Deactivate</th>
+			      <th>Billing Address</th>
+			      <th>Change Status</th>
+			      <th>Edit Information</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			  @foreach($users as $user)
+			  @foreach($accounts as $account)
 			    <tr>
-			      <td>{{$user->id}}</td>
-			      <td>{{$user->username}}</td>
-			      <td>{{$user->first_name}}</td>
-			      <td>{{$user->last_name}}</td>
-			      <td>{{$user->contact_number}}</td>
+			      <td>{{$account->id}}</td>
+			      <td>{{$account->account_number}}</td>
+			      <td>{{$account->meter_number}}</td>
+			      <td>{{$account->consumer()->first()->first_name}}</td>
+			      <td>{{$account->consumer()->first()->last_name}}</td>
+			      <td>{{$account->routes()->first()->route_name}}</td>
 			      <td>
-			      	@if($user->activated == 1)
-			      		Connected
+			      	@if($account->status == 1)
+						<p class = "ok">Connected</p>
 			      	@else
-			      		Disconnected
+						<p class = "error">Disconnected</p>
 			      	@endif
 			      </td>
-			      <td>
-			      	@foreach($user->locations as $location)	
-						{{$location->location_name}}
-			      	@endforeach
-			      </td>
-			      <td>
-			      	@foreach($user->routes as $route)
-						{{$route->route_name}}
-			      	@endforeach
-			      </td>
-			      <td>
-					@if($user->activated == 1)
-			      		{{HTML::link('admin/activation-user/' . $user->id, 'Deactivate', array('style' => 'color:green'))}}
-			      	@else
-			      		{{HTML::link('admin/activation-user/' . $user->id, 'Activate', array('style' => 'color:green'))}}
-			      	@endif
-			      </td>
+			      <td>{{$account->billing_address}}</td>
+			      <td>{{HTML::link('admin/change-connection-status','Change Status',array('style' => 'color:green'))}}</td>
+			      <td>{{HTML::link('admin/edit-information','Edit Information',array('style' => 'color:green'))}}</td>
 			    </tr>
 			   @endforeach
 			  </tbody>
 			</table>
-			{{$users->links()}}
+			{{$accounts->links()}}
 		</div>
 	</div>
 @stop

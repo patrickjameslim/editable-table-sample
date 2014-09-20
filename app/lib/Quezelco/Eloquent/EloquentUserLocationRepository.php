@@ -16,4 +16,8 @@ class EloquentUserLocationRepository implements UserLocationRepository{
 	public function reset($user){
 		UserLocation::where('user_id', '=', $user->id)->delete();
 	}
+
+	public function findByUser($user){
+		return UserLocation::where('user_id', '=', $user->id)->get();
+	}
 }
