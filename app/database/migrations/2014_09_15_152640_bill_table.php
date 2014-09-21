@@ -15,11 +15,10 @@ class BillTable extends Migration {
 		Schema::create('bills',function($table){
 			$table->increments('id');
 			$table->integer('account_id')->unsigned();
-			$table->string('oebr_number');
-			$table->decimal('current_bill_amount',10,5);
+			$table->date('due_date');
+			$table->tinyInteger('payment_status');
 			$table->date('start_date');
 			$table->date('end_date');
-			$table->string('bill_status');
 			$table->timestamps();
 		});
 	}

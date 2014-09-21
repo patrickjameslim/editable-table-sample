@@ -28,17 +28,6 @@ class CustomerController extends \BaseController {
 
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
@@ -48,6 +37,7 @@ class CustomerController extends \BaseController {
 
 		$id = Session::get('user_id');
 		$rules = array('account_number' => 'required|unique:accounts',
+						'oebr_number' => 'required|unique:accounts',
 						'meter_number' => 'required',
 						'billing_address' => 'required');
 		$validator = Validator::make(Input::all(),$rules);
@@ -56,21 +46,8 @@ class CustomerController extends \BaseController {
 		}else{
 			$user = $this->user->find($id);
 			$this->account->addAccountToConsumer($user, Input::all());
-
-			return Redirect::to('admin/account');
+			return Redirect::to('admin/account')->with('message','Account Successfuly Added');
 		}
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
 	}
 
 
@@ -82,7 +59,19 @@ class CustomerController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		//get account
+		$account = $this->account->find($id);
+
+		//get user, then get route collection
+		$user = $this->user->find($account->user_id);
+		$user_location = $this->user_location->findByUser($user);
+		$routes = $this->location->getAllRoutes($user_location[0]->location_id);
+		$arrayRoute = array();
+		foreach ($routes as $route) {
+			$arrayRoute[$route->id] = $route->route_name; 
+		}
+
+		return View::make('admin.customer.edit')->with('account',$account)->with('routes',$arrayRoute);
 	}
 
 
@@ -94,20 +83,18 @@ class CustomerController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = array('meter_number' => 'required',
+					   'billing_address' => 'required');
+		$validator = Validator::make(Input::all(),$rules);
+		if($validator->fails()){
+			return Redirect::to('admin/account/' . $id . '/edit')->withErrors($validator);
+		}else{
+			$account = $this->account->find($id);
+			$this->account->updateAccount($account, Input::all());
+			return Redirect::to('admin/account')->with('message','Account Successfuly Updated');
+		}
 	}
 
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
 
 	public function showCreateForm($id){
 		Session::forget('user_id');
@@ -122,15 +109,15 @@ class CustomerController extends \BaseController {
 		return View::make('admin.customer.add')->with('routes',$arrayRoute);
 	}
 
-	public function saveAccount($id){
-
-	}
-
 	public function search(){
 		$searchKey = Input::get('search_key');
 		$accounts = $this->account->search($searchKey);
 		return View::make('admin.customer.index')->with('accounts',$accounts);
 	}
 
-
+	public function changeStatus($id){
+		$account = $this->account->find($id);
+		$this->account->changeStatus($account);
+		return Redirect::to('admin/account')->with('message','Status Updated');
+	}
 }

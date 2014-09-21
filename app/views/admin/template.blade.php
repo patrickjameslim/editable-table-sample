@@ -8,11 +8,12 @@
 	<title>QUEZELCO | Electronic Cooperative, INC</title>
 	{{HTML::style('bower_components/bootstrap-sass/dist/css/bootstrap.min.css')}}
 	{{HTML::style("libs/foundation/css/normalize.css")}}
+	{{HTML::style('http://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css')}}
 	{{HTML::style("libs/foundation/css/foundation.css")}}
+	{{HTML::style('stylesheets/datetimepicker.css')}}
 	{{HTML::style("stylesheets/globals.css")}}
 	{{HTML::style("libs/zurb-responsive-tables/responsive-tables.css")}}
 	{{HTML::style('http://fonts.googleapis.com/css?family=Roboto+Condensed')}}
-    {{HTML::style("libs/foundation/js/vendor/modernizr.js")}}
     {{HTML::style("http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css")}}
 	<!--If developer wants to add files-->
 	@yield('head')
@@ -39,6 +40,7 @@
 		    <ul class="nav navbar-nav">
 		      <li><a href="{{URL::to('admin/home')}}">Home</a></li>
 		      <li><a href="{{URL::to('admin/billing')}}">Billing</a></li>
+		      <li><a href="{{URL::to('admin/monitoring')}}">Monitoring</a></li>
 		      <li><a href="{{URL::to('admin/wheeling-rates')}}">Wheeling Rates</a></li>
 		      <li><a href="{{URL::to('admin/location')}}">Locations</a></li>
 		      <li><a href="{{URL::to('admin/routes')}}">Routes</a></li>
@@ -60,10 +62,16 @@
 	@yield('content')
 	<!-- End of Main Content -->
 	{{HTML::script('libs/foundation/js/vendor/jquery.js')}}
+	{{HTML::script("libs/foundation/js/vendor/modernizr.js")}}
 	{{HTML::script('libs/foundation/js/foundation.min.js')}}
   	{{HTML::script("bower_components/bootstrap-sass/dist/js/bootstrap.min.js")}}
+  	{{HTML::script('http://code.jquery.com/ui/1.11.1/jquery-ui.js')}}
   	<script>
     	$(document).foundation();
+
+    	$(document).ready(function(){
+    		$(".datepicker").datepicker();
+    	});	
   	</script>
 </body>
 </html>

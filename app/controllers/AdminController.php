@@ -30,8 +30,8 @@ class AdminController extends BaseController{
 		return View::make('admin.disconnected-bills');
 	}
 
-	public function showBilling(){
-		return View::make('admin.billing');
+	public function showMonitoring(){
+		return View::make('admin.monitoring');
 	}
 
 	public function showReports(){

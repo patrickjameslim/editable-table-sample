@@ -6,4 +6,6 @@ interface AccountRepository{
 	public function addAccountToConsumer($user, $inputs);
 	public function updateReading($consumer, $inputs);
 	public function paginate();
+	public function updateAccount($account, $inputs);
+	public function changeStatus($account);
 }

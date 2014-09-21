@@ -14,6 +14,10 @@
 					<div class="error">{{$errors->first('account_number')}}</div>
 					{{Form::label('account_number','Account Number')}}
 					{{Form::text('account_number',Input::old('account_number'))}}
+
+					<div class="error">{{$errors->first('oebr_number')}}</div>
+					{{Form::label('oebr_number','OEBR Number')}}
+					{{Form::text('oebr_number', Input::old('oebr_number'))}}
 					
 					<div class="error">{{$errors->first('meter_number')}}</div>
 					{{Form::label('meter_number','Meter Number')}}

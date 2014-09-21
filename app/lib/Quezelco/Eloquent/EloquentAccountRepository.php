@@ -18,6 +18,7 @@ class EloquentAccountRepository implements AccountRepository{
 	public function addAccountToConsumer($user, $inputs){
 		$account = new Account();
 		$account->user_id = $user->id;
+		$account->oebr_number = $inputs['oebr_number'];
 		$account->account_number = $inputs['account_number'];
 		$account->route_id = $inputs['route_id'];
 		$account->meter_number = $inputs['meter_number'];
@@ -28,11 +29,27 @@ class EloquentAccountRepository implements AccountRepository{
 		$account->save();
 	}
 
+	public function updateAccount($account, $inputs){
+		$account->meter_number = $inputs['meter_number'];
+		$account->route_id = $inputs['route_id'];
+		$account->billing_address = $inputs['billing_address'];
+		$account->save();
+	}
+
 	public function updateReading($consumer, $newReading){
 		$previousReading = $consumer->current_reading;
 		$consumer->current_reading = $newReading;
 		$consumer->previous_reading = $previousReading;
 		$consumer->save();
+	}
+
+	public function changeStatus($account){
+		if($account->status == 0){
+			$account->status = 1;
+		}else{
+			$account->status = 0;
+		}
+		$account->save();
 	}
 
 	public function all(){

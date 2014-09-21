@@ -14,8 +14,6 @@
 		@if(Session::has('message'))
 			<div class="row billing-title">
 				<div class="col-md-12 column">
-					<p class="notification">{{Session::get('message')}}</p>
-				</div>
 			</div>
 		@endif
 		<div class="row">
@@ -40,7 +38,6 @@
 				</div>
 			{{Form::close()}}
 		</div>
-
 		<div class="row">
 			<table class="responsive">
 			  <thead>
@@ -52,9 +49,11 @@
 			      <th>Last Name</th>
 			      <th>Brgy</th>
 			      <th>Status</th>
-			      <th>Billing Address</th>
+			      <th>Current Reading</th>
+			      <th>Previous Reading</th>
 			      <th>Change Status</th>
 			      <th>Edit Information</th>
+			      <th>Enter Reading</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -73,10 +72,14 @@
 						<p class = "error">Disconnected</p>
 			      	@endif
 			      </td>
-			      <td>{{$account->billing_address}}</td>
-			      <td>{{HTML::link('admin/change-connection-status','Change Status',array('style' => 'color:green'))}}</td>
-			      <td>{{HTML::link('admin/edit-information','Edit Information',array('style' => 'color:green'))}}</td>
-			    </tr>
+			      <td>{{number_format($account->current_reading,2)}}</td>
+			      <td>{{number_format($account->previous_reading,2)}}</td>
+			      <td>{{HTML::link('admin/change-status/' . $account->id,'Change Status',array('style' => 'color:green'))}}</td>
+			      <td>{{HTML::link('admin/account/' . $account->id . '/edit','Edit Information',array('style' => 'color:green'))}}</td>
+			    	<td>
+			    		{{HTML::link('admin/enter-reading/' . $account->id, 'Enter Reading', array('style' => 'color:green'))}}
+			    	</td>
+			   	</tr>
 			   @endforeach
 			  </tbody>
 			</table>

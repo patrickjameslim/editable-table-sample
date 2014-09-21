@@ -98,7 +98,7 @@ Route::get('/admin/logout','AuthController@logout');
 Route::get('/admin/report','AdminController@showReports');
 Route::get('/admin/user-maintenance','UserMaintenanceController@showUserMaintenance');
 Route::get('/admin/add-customer','UserMaintenanceController@showAddCustomer');
-Route::get('/admin/billing','AdminController@showBilling');
+Route::get('/admin/monitoring','AdminController@showMonitoring');
 Route::get('/admin/cashier','AdminController@showCashier');
 Route::get('/admin/disconnected-bills','AdminController@showDisconnectedBills');
 Route::get('/admin/wheeling-rates','AdminController@showWheelingRates');
@@ -118,8 +118,12 @@ Route::post('/admin/account/search','CustomerController@search');
 Route::get('/admin/add-location/{userId}','UserMaintenanceController@showAddLocation');
 Route::post('/admin/add-location/{userId}', 'UserMaintenanceController@addLocationToUser');
 Route::get('/admin/add-account/{userId}','CustomerController@showCreateForm');
+Route::get('/admin/change-status/{id}','CustomerController@changeStatus');
+Route::get('/admin/enter-reading/{id}','BillingController@showEnterReadingForm');
+Route::post('/admin/billing/{id}','BillingController@enterReading');
 
 /*Resource Controller*/
 Route::resource('admin/location','LocationController');
 Route::resource('admin/routes','RoutesController');
 Route::resource('admin/account','CustomerController');
+Route::resource('admin/billing','BillingController');

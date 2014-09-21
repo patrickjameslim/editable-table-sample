@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row billing-title">
 			<div class="col-md-12 column">
-				<h2>Add New Account</h2>
+				<h2>Update Account</h2>
 			</div>
 		</div>
 		<div class="row">
@@ -23,7 +23,7 @@
 					{{Form::select('route_id',$routes)}}
 				
 					<div class="large-5 columns options-right">
-						{{Form::submit('Add Account',array('class' => 'tiny button add-customer'))}}
+						{{Form::submit('Update Account',array('class' => 'tiny button add-customer'))}}
 					</div>
 			{{Form::close()}}
 		</div>

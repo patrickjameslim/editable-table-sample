@@ -15,6 +15,7 @@ class AccountsTable extends Migration {
 		Schema::create('accounts',function($table){
 			$table->increments('id');
 			$table->string('account_number')->unique();
+			$table->string('oebr_number')->unique();
 			$table->string('meter_number');
 			$table->integer('user_id')->unsigned();
 			$table->integer('route_id')->unsigned();
