@@ -8,6 +8,9 @@
 		"cartalyst/sentry": "2.1.*",
 		"maatwebsite/excel": "1.*"
 	},
+	"require-dev": {
+    	"anouar/fpdf": "dev-master"
+	},
 	"autoload": {
 		"classmap": [
 			"app/commands",

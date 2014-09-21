@@ -14,8 +14,8 @@ class WheelingRatesSeeder extends Seeder{
 		$rates->contribution_for_capex = -0.71;
 		$rates->generation_vat = 0.4788;
 		$rates->transmission_vat = 0.0038;
-		$rates->distribution_vat =  0.0773;
-		$rates->system_loss_vat =  114.16;
+		$rates->distribution_vat =  114.16;
+		$rates->system_loss_vat =  0.0073;
 		$rates->others =  0.1200;
 		$rates->missionary_electrificxn = 0.1561;
 		$rates->environmental_charge = 0.0025;

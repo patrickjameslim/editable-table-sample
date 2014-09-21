@@ -22,7 +22,8 @@ class AccountsTable extends Migration {
 			$table->string('billing_address');
 			$table->decimal('current_reading',10,5);
 			$table->decimal('previous_reading',10,5);
-			$table->boolean('status');
+			$table->boolean('senior');
+			$table->tinyInteger('status');
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->foreign('route_id')->references('id')->on('routes');
 		});

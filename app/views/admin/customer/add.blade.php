@@ -30,6 +30,9 @@
 					{{Form::label('route_id','Brgy')}}
 					{{Form::select('route_id',$routes)}}
 				
+					{{Form::checkbox('senior')}}
+					{{Form::label('senior','Senior')}}
+					<br>				
 					<div class="large-5 columns options-right">
 						{{Form::submit('Add Account',array('class' => 'tiny button add-customer'))}}
 					</div>

@@ -2,6 +2,8 @@
 
 use Quezelco\Interfaces\BillRepository as Billing;
 use Quezelco\Interfaces\AccountRepository as AccountRepo;
+use Quezelco\Interfaces\RatesRepository as Rates;
+use Carbon\Carbon;
 
 class BillingController extends \BaseController {
 
@@ -11,9 +13,10 @@ class BillingController extends \BaseController {
 	 * @return Response
 	 */
 
-	public function __construct(Billing $bill,AccountRepo $account){
+	public function __construct(Billing $bill,AccountRepo $account, Rates $rates){
 		$this->account = $account;
 		$this->bill = $bill;
+		$this->rates = $rates;
 	}
 	public function index()
 	{
@@ -109,5 +112,207 @@ class BillingController extends \BaseController {
 
 	public function showEnterReadingForm($id){
 		return View::make('admin.billing.reading-form')->with('id', $id);
+	}
+
+	public function showPdf($id){
+		$bill = $this->bill->find($id);
+		$rates = $this->rates->getRates();
+		$accountObject = $bill->account()->first();
+		$userObject = $bill->account()->first()->consumer()->first();
+
+		$last_name = $userObject->last_name;
+		$first_name = $userObject->first_name;
+		$account_number = $accountObject->account_number;
+		$consumed = ($accountObject->current_reading - $accountObject->previous_reading);	
+		$periodCovered = $bill->start_date . ' to '. $bill->end_date;
+
+
+		$sum = 0.0;
+
+		Fpdf::AddPage();
+        Fpdf::SetFont('Courier','B',16);
+        Fpdf::Cell(190,10,'Quezelco Electronic Cooperative',0,1,'C');
+        Fpdf::SetFont('Courier','',11);
+        Fpdf::Cell(190,10,'Billing Statement',0,1,'C');
+        Fpdf::SetFont('Courier','','9');
+        Fpdf::Ln(5);
+        Fpdf::Cell(40,0,'--------------------------------------------------------------------------------------------------');
+        Fpdf::ln(5);	
+        Fpdf::Cell(40,0,"Billing Statement For: " . $first_name . ', ' . $last_name );
+        Fpdf::Ln(5);
+        Fpdf::Cell(40,0,'Account Number: ' . $account_number );
+        Fpdf::Ln(5);
+        Fpdf::Cell(40,0,"KWH: Consumed: $consumed"  );
+        Fpdf::Ln(5);
+        Fpdf::Cell(40,0,"Due Date: $bill->due_date"  );
+        Fpdf::Ln(5);
+        Fpdf::Cell(40,0,"Period Covered From: $periodCovered");
+        Fpdf::Ln(5);
+        Fpdf::Cell(40,0,"Previous Reading: " . $accountObject->previous_reading);
+        Fpdf::ln(5);
+        Fpdf::Cell(40,0,"Current Reading: " . $accountObject->current_reading);
+        Fpdf::ln(5);
+        Fpdf::Cell(40,0,'--------------------------------------------------------------------------------------------------');
+        Fpdf::ln(5);
+        Fpdf::Cell(40,0,"Date Printed: " . Carbon::now());
+        Fpdf::Ln(5);
+        Fpdf::Cell(40,0,'--------------------------------------------------------------------------------------------------');
+        Fpdf::Ln(5);
+        Fpdf::SetFont('Courier','B',9);
+        Fpdf::Cell(70,0,'Charges');
+        Fpdf::Cell(70,0,'Rate/KW/KWH');
+        Fpdf::Cell(70,0,'Amount');
+        Fpdf::SetFont('Courier','','9');
+        Fpdf::Ln(5);
+        Fpdf::Cell(70,0,'Generation System Charge');
+        Fpdf::Cell(70,0, number_format($rates->generation_system_charge,4));
+        Fpdf::Cell(70,0, number_format($rates->generation_system_charge * $consumed,4));
+
+        $sum += $rates->generation_system_charge * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Transmission System Charge');
+        Fpdf::Cell(70,0, number_format($rates->transmission_system_charge,4));
+        Fpdf::Cell(70,0, number_format($rates->transmission_system_charge * $consumed,4));
+        $sum += $rates->transmission_system_charge * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'System Loss Charge');
+        Fpdf::Cell(70,0, number_format($rates->system_loss_charge,4));
+        Fpdf::Cell(70,0, number_format($rates->system_loss_charge * $consumed,4));
+        $sum += $rates->system_loss_charge * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Distribution System Charge');
+        Fpdf::Cell(70,0, number_format($rates->dist_system_charge,4));
+        Fpdf::Cell(70,0, number_format($rates->dist_system_charge * $consumed,4));
+        $sum += $rates->dist_system_charge * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Retail End User Charge');
+        Fpdf::Cell(70,0, '');
+        Fpdf::Cell(70,0, number_format($rates->retail_end_user_charge,4));
+        $sum += $rates->retail_end_user_charge;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Retail End User Charge');
+        Fpdf::Cell(70,0, '');
+        Fpdf::Cell(70,0, number_format($rates->retail_customer_charge,4));
+        $sum += $rates->retail_customer_charge;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Lifeline Subsidy');
+        Fpdf::Cell(70,0, number_format($rates->lifeline_subsidy,4));
+        Fpdf::Cell(70,0, number_format($rates->lifeline_subsidy * $consumed,4));
+        $sum += $rates->lifeline_subsidy * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Previous Years Adjust Power Cost');
+        Fpdf::Cell(70,0, number_format($rates->prev_yrs_adj_pwr_cost,4));
+        Fpdf::Cell(70,0, number_format($rates->prev_yrs_adj_pwr_cost * $consumed,4));
+        $sum += $rates->prev_yrs_adj_pwr_cost * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Contribution for CAPEX');
+        Fpdf::Cell(70,0, number_format($rates->contribution_for_capex,4));
+        Fpdf::Cell(70,0, number_format($rates->contribution_for_capex * $consumed,4));
+        $sum += $rates->contribution_for_capex * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::SetFont('Courier','B',9);
+        Fpdf::Cell(40,0,'Value Added Tax-----------------------------------------------------------------------------------');
+        Fpdf::SetFont('Courier','',9);
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Generation');
+        Fpdf::Cell(70,0, number_format($rates->generation_vat,4));
+        Fpdf::Cell(70,0, number_format($rates->generation_vat * $consumed,4));
+        $sum += $rates->generation_vat * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Transmission');
+        Fpdf::Cell(70,0, number_format($rates->transmission_vat,4));
+        Fpdf::Cell(70,0, number_format($rates->transmission_vat * $consumed,4));
+        $sum += $rates->transmission_vat * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'System Loss');
+        Fpdf::Cell(70,0, number_format($rates->system_loss_vat,4));
+        Fpdf::Cell(70,0, number_format($rates->system_loss_vat * $consumed,4));
+        $sum += $rates->system_loss_vat * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Distribution');
+        Fpdf::Cell(70,0, '');
+        Fpdf::Cell(70,0, number_format($rates->distribution_vat,4));
+        $sum += $rates->distribution_vat;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Others');
+        Fpdf::Cell(70,0, number_format($rates->others,4));
+        Fpdf::Cell(70,0, number_format($rates->others * $consumed,4));
+        $sum += $rates->others * $consumed;
+        
+
+        Fpdf::ln(5);
+        Fpdf::SetFont('Courier','B',9);
+        Fpdf::Cell(40,0,'Universal Charges--------------------------------------------------------------------------------');
+        Fpdf::SetFont('Courier','',9);
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Missionary Electrificxn');
+        Fpdf::Cell(70,0, number_format($rates->missionary_electrificxn,4));
+        Fpdf::Cell(70,0, number_format($rates->missionary_electrificxn * $consumed,4));
+        $sum += $rates->missionary_electrificxn * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Environmental Charge');
+        Fpdf::Cell(70,0, number_format($rates->environmental_charge,4));
+        Fpdf::Cell(70,0, number_format($rates->environmental_charge * $consumed,4));
+        $sum += $rates->environmental_charge * $consumed;
+
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'NPC Stranded Cont Cost');
+        Fpdf::Cell(70,0, number_format($rates->npc_stranded_cont_cost,4));
+        Fpdf::Cell(70,0, number_format($rates->npc_stranded_cont_cost * $consumed,4));
+        $sum += $rates->npc_stranded_cont_cost * $consumed;
+        Fpdf::ln(5);
+        $penalty = 0;
+        if($accountObject->status == 0){
+			$penalty = $sum * 0.12;
+			$sum = $sum + $penalty;
+	        Fpdf::Cell(70,0,'Penalty (12%)');
+	        Fpdf::Cell(70,0, 0.12);
+	        Fpdf::Cell(70,0, number_format($sum * 0.12));
+		}else if($accountObject->status == -1){
+			$penalty = $sum * 0.12;
+			$sum = $sum + $penalty;
+			Fpdf::Cell(70,0,'Penalty (12%)');
+	        Fpdf::Cell(70,0, 0.12);
+	        Fpdf::Cell(70,0, number_format($sum * 0.12));
+	        Fpdf::ln(5);
+	        Fpdf::Cell(70,0,'Reconnection Fee P112');
+	        Fpdf::Cell(70,0, 112);
+	        Fpdf::Cell(70,0, number_format(112));
+			$sum = $sum + 112;
+		}
+
+        Fpdf::ln(5);
+        Fpdf::Cell(40,0,'--------------------------------------------------------------------------------------------------');
+        Fpdf::ln(5);
+        Fpdf::SetFont('Courier','B',13);
+        Fpdf::Cell(70,0,'Total Amount Due');
+        Fpdf::Cell(70,0, '');
+        Fpdf::Cell(70,0,number_format($sum,2));
+        Fpdf::ln(5);
+        Fpdf::SetFont('Courier','b',9);
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Not Valid as Official Receipt');
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'This becomes final if no complaint is received after 5 (five) days from receipt hereof');
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Please Present This statement when paying for your bill');
+
+        Fpdf::Output();
+        exit;
 	}
 }

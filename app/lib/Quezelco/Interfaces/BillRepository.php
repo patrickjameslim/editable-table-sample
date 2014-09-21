@@ -6,4 +6,5 @@ interface BillRepository{
 	public function updateBilling($account, $inputs);
 	public function all();
 	public function paginate();
+	public function findNextPayment($oebr_number);
 }

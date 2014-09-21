@@ -22,9 +22,6 @@
 						</div>
 					{{Form::close()}}
 				</div>
-				<div class="col-md-5 options-right">
-					<button class="btn btn-primary"><a href="add-customer.html"><i class="fa fa-plus"></i>Enter Reading</a></button>
-				</div>
 				<!-- <div class="large-6 columns options-right">
 					<button class="button tiny">Add Customer</button>
 					<label>Page:</label>
@@ -43,35 +40,33 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<div class="table-responsive">
+					<div class="table-responsive">
 					<table class="table table-striped">
 					  <thead>
 					    <tr>
 					      <th>#</th>
-					      <th>Meter ID</th>
 					      <th>OEBR Number</th>
-					      <th>Area</th>
 					      <th>Account Number</th>
 					      <th>Name</th>
 					      <th>Previous</th>
 					      <th>Present</th>
 					      <th>Due Date</th>
 					      <th>Adjust Billing</th>
+					      <th>Print Billing Statement</th>
 					    </tr>
 					  </thead>
 					  <tbody>
 					    @foreach($bills as $bill)
 							<tr>
 								<td>{{$bill->id}}</td>
-								<td>{{$bill->account()->first()->meter_number}}</td>
 								<td>{{$bill->account()->first()->oebr_number}}</td>
-								<td>{{$bill->account()->first()->routes()->first()->route_name}}</td>
 								<td>{{$bill->account()->first()->account_number}}</td>
 								<td>{{$bill->account()->first()->consumer()->first()->last_name}} , {{$bill->account()->first()->consumer()->first()->first_name}}</td>
 								<td>{{$bill->account()->first()->previous_reading}}</td>
 								<td>{{$bill->account()->first()->current_reading}}</td>
 								<td>{{$bill->due_date}}</td>
-								<td>{{HTML::link('admin/adjust-billing'. $bill->id, 'Adjust Billing')}}</td>
+								<td>{{HTML::link('admin/adjust-billing'. $bill->id, 'Adjust Billing' , array('style' => 'color:green'))}}</td>
+								<td>{{HTML::link('admin/print-billing-statement/' . $bill->id, 'Print', array('style' => 'color:green'))}}</td>
 							</tr>
 					    @endforeach
 					  </tbody>
