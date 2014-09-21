@@ -21,4 +21,15 @@ class CashierController extends BaseController{
 		}
 		
 	}
+
+	public function acceptPayment($id){
+		$payment = new Payment();
+		$payment->payment = Input::get('payment');
+		$payment->change = Input::get('payment') - Input::get('due_payment');
+		$payment->bill_id = $id;
+
+		$payment->save();
+		Session::flash('message','Payment Accepted!');
+		return Redirect::to('cashier/home');
+	}
 }

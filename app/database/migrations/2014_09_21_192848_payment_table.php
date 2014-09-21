@@ -14,7 +14,11 @@ class PaymentTable extends Migration {
 	{
 		Schema::create('payment',function($table){
 			$table->increments('id');
-			$table->payment('');
+			$table->double('payment',10,4);
+			$table->integer('bill_id')->unsigned();
+			$table->double('change', 10, 4);
+			$table->timestamps();
+			$table->foreign('bill_id')->references('id')->on('bills');
 		});
 	}
 
