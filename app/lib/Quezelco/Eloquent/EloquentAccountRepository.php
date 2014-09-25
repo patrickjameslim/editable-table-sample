@@ -26,7 +26,6 @@ class EloquentAccountRepository implements AccountRepository{
 		$account->current_reading = 0;
 		$account->previous_reading = 0;
 		$account->status = 1;
-		$account->senior = $inputs['senior'];
 		$account->save();
 	}
 
@@ -34,7 +33,6 @@ class EloquentAccountRepository implements AccountRepository{
 		$account->meter_number = $inputs['meter_number'];
 		$account->route_id = $inputs['route_id'];
 		$account->billing_address = $inputs['billing_address'];
-		$account->senior = $inputs['senior'];
 		$account->save();
 	}
 

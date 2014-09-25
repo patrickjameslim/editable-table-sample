@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row billing-title">
 			<div class="col-md-12 column">
-				<h2>Billing</h2>
+				<h2>Billing/Billing History</h2>
 			</div>
 		</div>
 
@@ -15,7 +15,7 @@
 					{{Form::open(array('url' => 'admin/billing/search'))}}
 						<div class="form-group">
 							<div class="col-md-8">
-								{{Form::label('searchKey','Search:')}}
+								{{Form::label('searchKey','Search:', array('placeholder' => 'Search by OEBR'))}}
 								{{Form::text('searchKey')}}
 								<input class="btn btn-primary" type="submit" value="Search">
 							</div>
@@ -51,6 +51,7 @@
 					      <th>Previous</th>
 					      <th>Present</th>
 					      <th>Due Date</th>
+					      <th>Payment Status</th>
 					      <th>Adjust Billing</th>
 					      <th>Print Billing Statement</th>
 					    </tr>
@@ -65,6 +66,11 @@
 								<td>{{$bill->account()->first()->previous_reading}}</td>
 								<td>{{$bill->account()->first()->current_reading}}</td>
 								<td>{{$bill->due_date}}</td>
+								@if($bill->payment_status == 0)
+									<td>Not Yet Paid</td>
+								@elseif($bill->payment_status == 1)
+									<td>Paid</td>
+								@endif
 								<td>{{HTML::link('admin/adjust-billing'. $bill->id, 'Adjust Billing' , array('style' => 'color:green'))}}</td>
 								<td>{{HTML::link('admin/print-billing-statement/' . $bill->id, 'Print', array('style' => 'color:green'))}}</td>
 							</tr>

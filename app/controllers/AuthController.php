@@ -1,10 +1,15 @@
 <?php
 
+use Quezelco\Interfaces\AccountRepository as Account;
 use Quezelco\Interfaces\AuthRepository as Auth;
+use Quezelco\Interfaces\LogRepository as Logger;
+
 class AuthController extends BaseController{
 
-	public function __construct(Auth $auth){
+	public function __construct(Auth $auth, Logger $logger, Account $account){
+		$this->logger = $logger;
 		$this->auth = $auth;
+		$this->account = $account;
 	}
 
 	public function validateLogin(){
@@ -17,6 +22,7 @@ class AuthController extends BaseController{
 			$user = $this->auth->authenticate($credentials);
 			$error = "";
 			$returnUrl = $this->redirectToRoleUrl($user);
+			$this->logger->add($user->id, true);
 			return Redirect::to($returnUrl);
 		}catch (Cartalyst\Sentry\Users\LoginRequiredException $e){
 		    $error = 'Username is required.';
@@ -34,6 +40,8 @@ class AuthController extends BaseController{
 	}
 
 	public function logout(){
+		$user = $this->auth->getCurrentUser();
+		$this->logger->add($user->id, false);
 		$this->auth->logout();
 		return View::make('login')->with('logout_message' ,'User Succesfully Logout');
 	}
@@ -49,6 +57,14 @@ class AuthController extends BaseController{
 			return 'admin/home';
 		}else if($user->inGroup($this->auth->findGroupByName('Cashier'))){
 			return 'cashier/home';
+		}else if($user->inGroup($this->auth->findGroupByName('Area Manager'))){
+			return 'manager/home';
+		}else if($user->inGroup($this->auth->findGroupByName('IT Personnel'))){
+			return 'admin/home';
+		}else if($user->inGroup($this->auth->findGroupByName('Collector'))){
+			return 'collector/home';
+		}else{
+			return 'consumer/home';
 		}
 	}
 }

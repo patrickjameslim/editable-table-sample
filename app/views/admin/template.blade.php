@@ -47,7 +47,7 @@
 		      <!--<li><a href="{{URL::to('admin/cashier')}}">Cashier</a></li>-->
 		      <li><a href="{{URL::to('admin/user-maintenance')}}">User Maintenance</a></li>
 		      <li><a href="{{URL::to('admin/account')}}">Customer Management</a></li>
-		      <li><a href="{{URL::to('admin/report')}}">Report</a></li>
+		      <li><a href="{{URL::to('admin/report')}}">Reports</a></li>
 		    </ul>
 
 		    <!-- Right Nav Section -->

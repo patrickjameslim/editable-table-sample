@@ -122,6 +122,10 @@ Route::get('/admin/change-status/{id}','CustomerController@changeStatus');
 Route::get('/admin/enter-reading/{id}','BillingController@showEnterReadingForm');
 Route::post('/admin/billing/{id}','BillingController@enterReading');
 Route::get('/admin/print-billing-statement/{id}','BillingController@showPdf');
+Route::get('/admin/reports/user-list','ReportController@generateUserList');
+Route::get('/admin/reports/location-list','ReportController@generateLocationList');
+Route::get('/admin/reports/route-list', 'ReportController@generateRouteList');
+Route::get('/admin/reports/consumer-list','ReportController@generateAccountList');
 
 /*Resource Controller*/
 Route::resource('admin/location','LocationController');

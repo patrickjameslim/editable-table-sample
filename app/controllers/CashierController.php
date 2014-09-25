@@ -17,19 +17,27 @@ class CashierController extends BaseController{
 		}else{
 			$oebr = Input::get('oebr');
 			$bill = $this->bill->findNextPayment($oebr);
+			if(is_null($bill)){
+				Session::flash('message','There are no pending dues for this account');
+				return Redirect::to('cashier/home');
+			}
 			return View::make('cashier.payment')->with('bill',$bill);
 		}
 		
 	}
 
 	public function acceptPayment($id){
+		$bill = $this->bill->find($id);
+
+		$bill->payment_status = 1;
+		$bill->save();
 		$payment = new Payment();
 		$payment->payment = Input::get('payment');
-		$payment->change = Input::get('payment') - Input::get('due_payment');
+		$payment->change = Input::get('payment') - $bill->due_payment;
 		$payment->bill_id = $id;
 
 		$payment->save();
-		Session::flash('message','Payment Accepted!');
+		Session::flash('message','Payment Accepted! Change is: ' . $payment->change);
 		return Redirect::to('cashier/home');
 	}
 }
