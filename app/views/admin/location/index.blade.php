@@ -70,14 +70,15 @@
 				</div>
 			<div class="col-md-5 options-left">
 					{{Form::open(array('url' => 'admin/location'))}}
+					<h6>Add New Location</h6>
 					<div class="form-group">
-						<div class="col-md-5">
+						<div class="col-md-8">
 							<h6>District Name</h6>
 							{{Form::text('district_name','',array('class' => 'form-control'))}}
 							<div class="error">{{$errors->first('district_name')}}</div>
 						</div>
 
-						<div class="col-md-5">
+						<div class="col-md-8">
 							<h6>Location Name </h6>
 							{{Form::text('location_name','',array('class' => 'form-control'))}}
 							<div class="error">{{$errors->first('location_name')}}</div>
