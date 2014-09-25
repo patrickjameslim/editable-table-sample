@@ -131,8 +131,9 @@ return array(
 		'Quezelco\Providers\QRoutesServiceProvider',
 		'Quezelco\Providers\UserLocationServiceProvider',
 		'Quezelco\Providers\AccountServiceProvider',
-		'Quezelco\Providers\BillServiceProvider'
-		'Anouar\Fpdf\FpdfServiceProvider'
+		'Quezelco\Providers\BillServiceProvider',
+		'Anouar\Fpdf\FpdfServiceProvider',
+		'Quezelco\Providers\LogServiceProvider'
 	),
 
 	/*
@@ -201,7 +202,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Sentry'		  => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
-		'RoutesRepo'	  => 'Quezelco\Interfaces\RoutesRepository'
+		'RoutesRepo'	  => 'Quezelco\Interfaces\RoutesRepository',
 		'Fpdf'		      => 'Anouar\Fpdf\Facades\Fpdf'
 	),
 
