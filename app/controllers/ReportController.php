@@ -6,7 +6,7 @@ use Quezelco\Eloquent\EloquentLocationRepository as Location;
 use Quezelco\Eloquent\EloquentRoutesRepository as QRoutes;
 class ReportController extends BaseController{
 
-	public function __construct(User $user, Location $location, Qroute $route, Account $account){
+	public function __construct(User $user, Location $location, Qroutes $route, Account $account){
 		$this->location = $location;
 		$this->user = $user;
 		$this->route = $route;
