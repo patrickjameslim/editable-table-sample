@@ -98,7 +98,7 @@ class ReportController extends BaseController{
         Fpdf::Cell(48, 10, "District" , 1, 0, 'L', true);
         Fpdf::Ln();
 
-        $routes = $this->route->all();
+        $routes = QRoute::all();
 
         Fpdf::SetFillColor(255);
         Fpdf::SetTextColor(0);
