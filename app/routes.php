@@ -74,6 +74,16 @@ Route::filter('admin',function(){
     }
 });
 
+/*System Admin*/
+Route::filter('collector',function(){
+	$user = Sentry::getUser();
+	if($user == null){
+		return "User not logged in";
+	}else if(!$user->hasAccess('collector')){
+    	return "Access Forbidden";
+    }
+});
+
 /*----Attaching filters to routes----*/
 Route::when('cashier/*', 'cashier');
 Route::when('manager/*', 'manager');
@@ -138,3 +148,7 @@ Route::get('cashier/home','CashierController@showHome');
 Route::get('cashier/logout', 'AuthController@logout');
 Route::post('cashier/payment/search-oebr','CashierController@showOEBR');
 Route::post('cashier/accept-payment/{id}','CashierController@acceptPayment');
+
+/*COLLECTOR*/
+Route::get('collector/home','CollectorController@showHome');
+Route::get('collector/logout', 'AuthController@logout');
