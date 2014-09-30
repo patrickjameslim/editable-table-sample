@@ -276,25 +276,23 @@ class BillingController extends \BaseController {
         Fpdf::Cell(70,0, number_format($rates->npc_stranded_cont_cost * $consumed,4));
         $sum += $rates->npc_stranded_cont_cost * $consumed;
         Fpdf::ln(5);
-        $penalty = 0;
-        if($accountObject->status == 0){
-		$penalty = $sum * 0.12;
-		$sum = $sum + $penalty;
-	        Fpdf::Cell(70,0,'Penalty (12%)');
-	        Fpdf::Cell(70,0, 0.12);
-	        Fpdf::Cell(70,0, number_format($sum * 0.12));
-	}else if($accountObject->status == -1){
-		$penalty = $sum * 0.12;
-		$sum = $sum + $penalty;
-		Fpdf::Cell(70,0,'Penalty (12%)');
-	        Fpdf::Cell(70,0, 0.12);
-	        Fpdf::Cell(70,0, number_format($sum * 0.12));
-	        Fpdf::ln(5);
-	        Fpdf::Cell(70,0,'Reconnection Fee P112');
-	        Fpdf::Cell(70,0, 112);
-	        Fpdf::Cell(70,0, number_format(112));
-		$sum = $sum + 112;
-	}
+
+	$penalty = $sum * 0.12;
+        $penaltyVat = $penalty * 0.12;
+	$sum = $sum + $penalty;
+	$penalty = $penalty - $penaltyVat;
+        Fpdf::Cell(70,0,'Penalty');
+	Fpdf::Cell(70,0, 0.12);
+	Fpdf::Cell(70,0, number_format($penalty));
+        Fpdf::ln(5);
+        Fpdf::Cell(70,0,'Penalty Vat (12%)');
+        Fpdf::Cell(70,0, 0.12);
+        Fpdf::Cell(70,0, number_format($penaltyVat));
+	Fpdf::ln(5);
+	Fpdf::Cell(70,0,'Reconnection Fee P112');
+	Fpdf::Cell(70,0, 112);
+	Fpdf::Cell(70,0, number_format(112));
+	$sum = $sum + 112;
 
         Fpdf::ln(5);
         Fpdf::Cell(40,0,'--------------------------------------------------------------------------------------------------');

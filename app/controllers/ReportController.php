@@ -4,6 +4,7 @@ use Quezelco\Interfaces\AccountRepository as Account;
 use Quezelco\Eloquent\EloquentUserRepository as User;
 use Quezelco\Eloquent\EloquentLocationRepository as Location;
 use Quezelco\Eloquent\EloquentRoutesRepository as QRoutes;
+
 class ReportController extends BaseController{
 
 	public function __construct(User $user, Location $location, Qroutes $route, Account $account){
@@ -136,6 +137,7 @@ class ReportController extends BaseController{
 
         Fpdf::SetFillColor(255);
         Fpdf::SetTextColor(0);
+        
         foreach($accounts as $account){
         	Fpdf::Cell(38, 6, $account->account_number, 1, 0, 'L', true);
         	Fpdf::Cell(38, 6, $account->oebr_number, 1, 0, 'L', true);

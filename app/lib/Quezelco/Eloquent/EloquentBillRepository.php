@@ -54,19 +54,11 @@ class EloquentBillRepository implements BillRepository{
 		$sum += $rates->distribution_vat;
 		$sum += $rates->others * $consumed;
 		$sum += $rates->missionary_electrificxn * $consumed;
-		$sum += $rates->others * $consumed;
-		$sum += $rates->missionary_electrificxn * $consumed;
 		$sum += $rates->environmental_charge * $consumed;
 		$sum += $rates->npc_stranded_cont_cost * $consumed;
-
-		if($account->status == 0){
-			$penalty = $sum * 0.12;
-			$sum = $sum + $penalty;
-		}else if($account->status == -1){
-			$penalty = $sum * 0.12;
-			$sum = $sum + $penalty;
-			$sum = $sum + 112;
-		}
+		$penalty = $sum * 0.12;
+		$sum = $sum + $penalty;
+		$sum += 112;
 
 		$bill->total_payment = $sum;
 
