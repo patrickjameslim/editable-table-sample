@@ -152,3 +152,8 @@ Route::post('cashier/accept-payment/{id}','CashierController@acceptPayment');
 /*COLLECTOR*/
 Route::get('collector/home','CollectorController@showHome');
 Route::get('collector/logout', 'AuthController@logout');
+
+/*Cashiering*/
+Route::get('consumer/home','ConsumerController@showHome');
+Route::get('consumer/enroll','ConsumerController@showEnroll');
+Route::get('consumer/logout','AuthController@logout');

@@ -64,4 +64,8 @@ class EloquentAccountRepository implements AccountRepository{
 	public function paginate(){
 		return Account::paginate($this->recordsPerPage);
 	}
+
+	public function findAccountsByUser($user){
+		return Account::where('user_id','=',$user->id);
+	}
 }
