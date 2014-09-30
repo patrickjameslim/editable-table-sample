@@ -40,7 +40,6 @@
 		    <ul class="nav navbar-nav">
 		      <li><a href="{{URL::to('consumer/home')}}">Home</a></li>
 		      <li><a href="{{URL::to('consumer/billing-history')}}">View Billing History</a></li>
-		      <li><a href="{{URL::to('consumer/enroll')}}">Enroll for SMS</a></li>
 		    </ul>
 
 		    <!-- Right Nav Section -->

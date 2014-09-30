@@ -136,6 +136,7 @@ Route::get('/admin/reports/user-list','ReportController@generateUserList');
 Route::get('/admin/reports/location-list','ReportController@generateLocationList');
 Route::get('/admin/reports/route-list', 'ReportController@generateRouteList');
 Route::get('/admin/reports/consumer-list','ReportController@generateAccountList');
+Route::post('/admin/accounts/textblast','CustomerController@textblast');
 
 /*Resource Controller*/
 Route::resource('admin/location','LocationController');
@@ -155,5 +156,6 @@ Route::get('collector/logout', 'AuthController@logout');
 
 /*Cashiering*/
 Route::get('consumer/home','ConsumerController@showHome');
-Route::get('consumer/enroll','ConsumerController@showEnroll');
+Route::get('consumer/enroll/{id}','ConsumerController@showEnroll');
+Route::post('consumer/enroll/{id}','ConsumerController@enroll');
 Route::get('consumer/logout','AuthController@logout');

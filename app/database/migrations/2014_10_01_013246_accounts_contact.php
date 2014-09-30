@@ -14,8 +14,10 @@ class AccountsContact extends Migration {
 	{
 		Schema::create('accounts_contact',function($table){
 			$table->increments('id');
-			$table->integer('user_id')->unsigned()->unique();
+			$table->integer('account_id')->unsigned()->unique();
 			$table->string('contact_number')->unique();
+
+			$table->foreign('account_id')->references('id')->on('accounts');
 		});
 	}
 
@@ -26,7 +28,7 @@ class AccountsContact extends Migration {
 	 */
 	public function down()
 	{
-		//
+		
 	}
 
 }
