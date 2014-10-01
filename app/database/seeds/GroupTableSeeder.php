@@ -28,7 +28,8 @@ class GroupTableSeeder extends Seeder{
 		Sentry::createGroup(array(
 			'name' => 'IT Personnel',
 			'permissions' => array(
-				'personnel' => 1
+				'personnel' => 1,
+				'admin' => 1
 			)
 		));
 		Sentry::createGroup(array(

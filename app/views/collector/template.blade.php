@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en" >
 
@@ -38,22 +38,13 @@
 		  	
 		  	 <!-- Left Nav Section -->
 		    <ul class="nav navbar-nav">
-		      <li><a href="{{URL::to('admin/home')}}">Home</a></li>
-		      <li><a href="{{URL::to('admin/billing')}}">Billing</a></li>
-		      <li><a href="{{URL::to('admin/monitoring')}}">Monitoring</a></li>
-		      <li><a href="{{URL::to('admin/wheeling-rates')}}">Wheeling Rates</a></li>
-		      <li><a href="{{URL::to('admin/location')}}">Locations</a></li>
-		      <li><a href="{{URL::to('admin/routes')}}">Routes</a></li>
-		      <!--<li><a href="{{URL::to('admin/cashier')}}">Cashier</a></li>-->
-		      <li><a href="{{URL::to('admin/user-maintenance')}}">User Maintenance</a></li>
-		      <li><a href="{{URL::to('admin/account')}}">Customer Management</a></li>
-		      <li><a href="{{URL::to('admin/report')}}">Reports</a></li>
+		      <li><a href="{{URL::to('collector/home')}}">Home</a></li>
 		    </ul>
 
 		    <!-- Right Nav Section -->
 		    <ul class="nav navbar-nav navbar-right">
 		      <li><a href="#">My Account</a></li>
-		      <li><a href="{{URL::to('admin/logout')}}">Logout</a></li>
+		      <li><a href="{{URL::to('collector/logout')}}">Logout</a></li>
 		    </ul>
 		  </div>
 	</nav>

@@ -8,4 +8,5 @@ interface AccountRepository{
 	public function paginate();
 	public function updateAccount($account, $inputs);
 	public function changeStatus($account);
+	public function findAccountsByUser($user);
 }

@@ -1,27 +1,27 @@
 <?php
 use Quezelco\Interfaces\BillRepository as Bill;
 
-class CashierController extends BaseController{
+class CollectorController extends BaseController{
 	public function __construct(Bill $bill){
 		$this->bill = $bill;
 	}
 	public function showHome(){
-		return View::make('cashier.index');
+		return View::make('collector.index');
 	}
 
 	public function showOEBR(){
 		$rules = array('oebr' => 'required|exists:accounts,oebr_number');
 		$validator = Validator::make(Input::all(),$rules);
 		if($validator->fails()){
-			return Redirect::to('cashier/home')->withErrors($validator);
+			return Redirect::to('collector/home')->withErrors($validator);
 		}else{
 			$oebr = Input::get('oebr');
 			$bill = $this->bill->findNextPayment($oebr);
 			if(is_null($bill)){
 				Session::flash('message','There are no pending dues for this account');
-				return Redirect::to('cashier/home');
+				return Redirect::to('collector/home');
 			}
-			return View::make('cashier.payment')->with('bill',$bill);
+			return View::make('collector.payment')->with('bill',$bill);
 		}
 		
 	}
@@ -38,6 +38,6 @@ class CashierController extends BaseController{
 
 		$payment->save();
 		Session::flash('message','Payment Accepted! Change is: ' . $payment->change);
-		return Redirect::to('cashier/home');
+		return Redirect::to('collector/home');
 	}
 }

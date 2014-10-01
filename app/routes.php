@@ -74,6 +74,16 @@ Route::filter('admin',function(){
     }
 });
 
+/*System Admin*/
+Route::filter('collector',function(){
+	$user = Sentry::getUser();
+	if($user == null){
+		return "User not logged in";
+	}else if(!$user->hasAccess('collector')){
+    	return "Access Forbidden";
+    }
+});
+
 /*----Attaching filters to routes----*/
 Route::when('cashier/*', 'cashier');
 Route::when('manager/*', 'manager');
@@ -122,6 +132,11 @@ Route::get('/admin/change-status/{id}','CustomerController@changeStatus');
 Route::get('/admin/enter-reading/{id}','BillingController@showEnterReadingForm');
 Route::post('/admin/billing/{id}','BillingController@enterReading');
 Route::get('/admin/print-billing-statement/{id}','BillingController@showPdf');
+Route::get('/admin/reports/user-list','ReportController@generateUserList');
+Route::get('/admin/reports/location-list','ReportController@generateLocationList');
+Route::get('/admin/reports/route-list', 'ReportController@generateRouteList');
+Route::get('/admin/reports/consumer-list','ReportController@generateAccountList');
+Route::post('/admin/accounts/textblast','CustomerController@textblast');
 
 /*Resource Controller*/
 Route::resource('admin/location','LocationController');
@@ -134,3 +149,13 @@ Route::get('cashier/home','CashierController@showHome');
 Route::get('cashier/logout', 'AuthController@logout');
 Route::post('cashier/payment/search-oebr','CashierController@showOEBR');
 Route::post('cashier/accept-payment/{id}','CashierController@acceptPayment');
+
+/*COLLECTOR*/
+Route::get('collector/home','CollectorController@showHome');
+Route::get('collector/logout', 'AuthController@logout');
+
+/*Cashiering*/
+Route::get('consumer/home','ConsumerController@showHome');
+Route::get('consumer/enroll/{id}','ConsumerController@showEnroll');
+Route::post('consumer/enroll/{id}','ConsumerController@enroll');
+Route::get('consumer/logout','AuthController@logout');

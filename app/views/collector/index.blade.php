@@ -1,13 +1,13 @@
-@extends('cashier.template')
+@extends('collector.template')
 @section('head')
-	{{HTML::style("stylesheets/cashier.css")}}
+	{{HTML::style("stylesheets/collector.css")}}
 @stop
 @section('content')
 
 	<!-- Main Content -->
 	
 	<div class="container">
-		<h2>Cashier</h2>
+		<h2>Collector</h2>
 		<div class="col-md-12">
 			{{Form::open(array('url' =>'cashier/payment/search-oebr'))}}
 			<div class="error">{{$errors->first('oebr')}}</div>
@@ -20,12 +20,5 @@
 			</div>
 			{{Form::close()}}
 		</div>
-		@if(Session::has('message'))
-			<div class="row billing-title">
-				<div class="col-md-12 column">
-					<p class="notification">{{Session::get('message')}}</p>
-				</div>
-			</div>
-		@endif
 	</div>
 @stop

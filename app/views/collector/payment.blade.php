@@ -1,6 +1,6 @@
 @extends('cashier.template')
 @section('head')
-	{{HTML::style("stylesheets/cashier.css")}}
+	{{HTML::style("stylesheets/collector.css")}}
 @stop
 @section('content')
 
@@ -10,7 +10,7 @@
 		
 		<h2>Cashier</h2>
 		<div class="col-md-12">
-		{{Form::open(array('url' =>'cashier/accept-payment/' . $bill->id))}}
+		{{Form::open(array('url' =>'collector/accept-payment/' . $bill->id))}}
 			<div class="col-md-4">
 				<h6>Oebr Number</h6>
 				{{Form::text('last_name', $bill->account()->first()->oebr_number,array('class' => 'form-control', 'id' => 'change', 'readonly' => 'true'))}}

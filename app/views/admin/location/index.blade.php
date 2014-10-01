@@ -26,7 +26,7 @@
 							  <div class="form-group">
 							    <div class="input-group">
 							    	<div class="input-group-addon"><i class="fa fa-search"></i></div>
-							    	{{Form::text('search_key','',array('class' => 'form-control','id' => 'search-user-logs', 'placeholder' => 'Search'))}}
+							    	{{Form::text('search_key','',array('class' => 'form-control','id' => 'search-user-logs', 'placeholder' => 'Search by Locaiton Name'))}}
 							    </div>
 							    <div class="col-md-3 search-btn-container">
 									<BR>

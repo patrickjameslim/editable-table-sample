@@ -120,4 +120,21 @@ class CustomerController extends \BaseController {
 		$this->account->changeStatus($account);
 		return Redirect::to('admin/account')->with('message','Status Updated');
 	}
+
+	public function textblast(){
+		$message = Input::get('message');
+		$rules = array('message' => 'required');
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()){
+			return Redirect::to('admin/account')->withErrors($validator);
+		}else{
+			$contacts = AccountContact::all();
+			foreach($contacts as $contact){
+				Twilio::message('+63' . $contact->contact_number, $message);
+			}
+		}
+		Session::flash('message','Textblast Successful');
+		return Redirect::to('admin/account');
+	}
 }

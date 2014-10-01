@@ -7,97 +7,34 @@
 		<div class="container index-container">
 			<div class="col-md-8">
 					<h3>User Logs</h3>
-					
-
-						<form role="form">
-						  <div class="form-group">
-						    <div class="input-group">
-						    	<div class="input-group-addon"><i class="fa fa-search"></i></div>
-						    	<input type="text" class="form-control" id="search-user-logs" placeholder="Search">
-						    </div>
-								<input type="submit" class="btn btn-primary search" value="Search">
-						  </div>
-						</form>	
-
 						<div class="table-responsive">
 							<table class="table table-striped">
 							<thead>
-								<th>Log Date</th>						
+								<th>Log Date and Time</th>						
 								<th>Last Name</th>						
 								<th>First Name</th>
 								<th>Username</th>
-								<th>In</th>
-								<th>Out</th>
-								<th>Status</th>
+								<th>Action</th>
 							</thead>
 							<tbody>
-								<tr>
-									<td>08/24/2014</td>
-									<td>Lim</td>
-									<td>Patrick James</td>
-									<td>sysadminpat</td>
-									<td>09:30</td>
-									<td>11:30</td>
-									<td>Logged Out</td>
-								</tr>
-								<tr>
-									<td>08/26/2014</td>
-									<td>Ramos</td>
-									<td>Jose Mari</td>
-									<td>jmsysadmin</td>
-									<td>12:30</td>
-									<td></td>
-									<td>Active</td>
-								</tr>
-								<tr>
-									<td>08/27/2014</td>
-									<td>Ramos</td>
-									<td>Jose Mari</td>
-									<td>jmsysadmin</td>
-									<td>16:42</td>
-									<td></td>
-									<td>Active</td>
-								</tr>
-								<tr>
-									<td>08/27/2014</td>
-									<td>Ramos</td>
-									<td>Jose Mari</td>
-									<td>jmsysadmin</td>
-									<td>16:42</td>
-									<td></td>
-									<td>Active</td>
-								</tr>
-								<tr>
-									<td>08/27/2014</td>
-									<td>Ramos</td>
-									<td>Jose Mari</td>
-									<td>jmsysadmin</td>
-									<td>16:42</td>
-									<td></td>
-									<td>Active</td>
-								</tr>
-								<tr>
-									<td>08/27/2014</td>
-									<td>Ramos</td>
-									<td>Jose Mari</td>
-									<td>jmsysadmin</td>
-									<td>16:42</td>
-									<td></td>
-									<td>Active</td>
-								</tr>
-								<tr>
-									<td>08/27/2014</td>
-									<td>Ramos</td>
-									<td>Jose Mari</td>
-									<td>jmsysadmin</td>
-									<td>16:42</td>
-									<td></td>
-									<td>Active</td>
-								</tr>
+								@foreach($logs as $log)
+									<tr>
+										<td>{{$log->created_at}}</td>
+										<td>{{$log->user()->first()->last_name}}</td>
+										<td>{{$log->user()->first()->first_name}}</td>
+										<td>{{$log->user()->first()->username}}</td>
+										@if($log->status == 1)
+											<td>Logged In</td>
+										@else
+											<td>Logged Out</td>		
+										@endif
+										
+									</tr>
+								@endforeach 	
 							</tbody>
 						</table>
 					</div>
-					
+					{{$logs->links()}}
 			</div>
 					
 			

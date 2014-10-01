@@ -4,18 +4,21 @@ use Quezelco\Interfaces\UserRepository as User;
 use Quezelco\Interfaces\GroupRepository as Group;
 use Quezelco\Interfaces\AuthRepository as Auth;
 use Quezelco\Interfaces\RatesRepository as Rates;
+use Quezelco\Interfaces\LogRepository as Logger;
 
 class AdminController extends BaseController{
 
-	public function __construct(User $user, Group $group, Auth $auth, Rates $rates){
+	public function __construct(User $user, Group $group, Auth $auth, Rates $rates, Logger $logger){
 		$this->user = $user;
 		$this->group = $group;
 		$this->auth = $auth;
 		$this->rates = $rates;
+		$this->logger = $logger;
 	}
 
 	public function showIndex(){
-		return View::make('admin.index');
+		$logs = $this->logger->all()->paginate(10);
+		return View::make('admin.index')->with('logs', $logs);
 	}
 
 	public function showCashier(){

@@ -133,7 +133,8 @@ return array(
 		'Quezelco\Providers\AccountServiceProvider',
 		'Quezelco\Providers\BillServiceProvider',
 		'Anouar\Fpdf\FpdfServiceProvider',
-		'Quezelco\Providers\LogServiceProvider'
+		'Quezelco\Providers\LogServiceProvider',
+		'Aloha\Twilio\TwilioServiceProvider'
 	),
 
 	/*
@@ -203,7 +204,8 @@ return array(
 		'Sentry'		  => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Excel' 		  => 'Maatwebsite\Excel\Facades\Excel',
 		'RoutesRepo'	  => 'Quezelco\Interfaces\RoutesRepository',
-		'Fpdf'		      => 'Anouar\Fpdf\Facades\Fpdf'
+		'Fpdf'		      => 'Anouar\Fpdf\Facades\Fpdf',
+		'Twilio'          => 'Aloha\Twilio\Facades\Twilio'
 	),
 
 );
