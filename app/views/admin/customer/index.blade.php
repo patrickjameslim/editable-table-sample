@@ -87,7 +87,7 @@
 				<h3>Send Textblast to All Enrolled Accounts</h3>
 				{{Form::open(array('url' => 'admin/accounts/textblast'))}}
 					<div class="error">{{$errors->first('message')}}</div>
-					{{Form::textarea('message','',array('maxlength' => '320'))}}
+					{{Form::textarea('message','',array('maxlength' => '160'))}}
 					{{Form::submit('Send',array('class' => 'btn btn-primary btn-lg'))}}
 				{{Form::close()}}
 		</div>
