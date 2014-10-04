@@ -16,8 +16,10 @@ class PaymentTable extends Migration {
 			$table->increments('id');
 			$table->double('payment',10,4);
 			$table->integer('bill_id')->unsigned();
+			$table->integer('cashier_id')->unsigned();
 			$table->double('change', 10, 4);
 			$table->timestamps();
+			$table->foreign('cashier_id')->references('id')->on('users');
 			$table->foreign('bill_id')->references('id')->on('bills');
 		});
 	}
