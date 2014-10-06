@@ -1,8 +1,11 @@
 <?php
+
 use Quezelco\Interfaces\BillRepository as Bill;
+use Quezelco\Interfaces\AuthRepository as Auth;
 
 class CashierController extends BaseController{
-	public function __construct(Bill $bill){
+	public function __construct(Bill $bill, Auth $auth){
+		$this->auth = $auth;
 		$this->bill = $bill;
 	}
 	public function showHome(){
@@ -27,6 +30,7 @@ class CashierController extends BaseController{
 	}
 
 	public function acceptPayment($id){
+
 		$bill = $this->bill->find($id);
 
 		$bill->payment_status = 1;
@@ -35,6 +39,7 @@ class CashierController extends BaseController{
 		$payment->payment = Input::get('payment');
 		$payment->change = Input::get('payment') - $bill->due_payment;
 		$payment->bill_id = $id;
+		$payment->cashier_id = $this->auth->getCurrentUser()->id;
 
 		$payment->save();
 		Session::flash('message','Payment Accepted! Change is: ' . $payment->change);

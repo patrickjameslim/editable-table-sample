@@ -6,13 +6,31 @@
 
 @section('content')
 	<!-- Main Content -->
-
+	<div class="container">
+		<div class="col-md-4">
+			<div class="error">{{$errors->first('username')}}</div>
+			<div class="error">{{$errors->first('password')}}</div>
+		</div>
+	</div>
 	<div class="container">
 		{{Form::model($rates, array('url' => 'admin/wheeling-rates','role' => 'form'))}}	
 		<div class="col-md-12">
 			<h2>Wheeling Rates</h2>
 		</div>
 		
+		@if(Session::has('error_message'))
+			<div class="col-md-4 ">
+				<p class="error">{{Session::get('error_message')}}</p>
+			</div>
+		@endif
+
+		@if(Session::has('message'))
+			<div class="col-md-4 ">
+				<p class="notification">{{Session::get('message')}}</p>
+			</div>
+		@endif
+
+
 		<div class="col-md-12">
 			<h5>CHARGES</h5>
 			

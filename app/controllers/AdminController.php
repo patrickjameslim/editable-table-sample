@@ -53,8 +53,22 @@ class AdminController extends BaseController{
 		if($validator->fails()){
 			return Redirect::to('admin/wheeling-rates')->withErrors($validator)->withInput(Input::all());
 		}else{
-			$this->rates->update(Input::all());
+			//tryy
+			try{
+				$user = $this->auth->findUserByCredentials(Input::all());
+			}catch(Cartalyst \ Sentry \ Users \ UserNotFoundException $e){
+				Session::flash('error_message','No user found');
+				return Redirect::to('admin/wheeling-rates');
+			}
+		
+			if($user->inGroup($this->auth->findGroupByName('Consumers Area Department'))){
+				$this->rates->update(Input::all());
+			}else{
+				Session::flash('error_message','Only CAD roles are allowed to change rates');
+				return Redirect::to('admin/wheeling-rates');
+			}
 		}
+		Session::flash('message','Wheeling Rates Updated');
 		return Redirect::to('admin/wheeling-rates');
 	}
 }

@@ -53,7 +53,9 @@ class EloquentRatesRepository implements RatesRepository{
 			'missionary_electrificxn' => 'required|numeric',
 			'environmental_charge' => 'required|numeric',
 			'npc_stranded_cont_cost' => 'required|numeric',
-			'sr_citizen_subsidy' => 'required|numeric'
+			'sr_citizen_subsidy' => 'required|numeric',
+			'username' => 'required',
+			'password' => 'required'
 		);
 
 		return Validator::make($inputs, $rules);

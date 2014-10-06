@@ -42,4 +42,15 @@ class SentryAuthRepository implements AuthRepository{
 	public function find($id){
 		return Sentry::find($id);
 	}
+	public function findUserByCredentials($inputs){
+		 try{
+		 	$user = Sentry::findUserByCredentials(array(
+				'username' => $inputs['username'],
+				'password' => $inputs['password']
+			));
+			return $user;
+		 }catch(Cartalyst\Sentry\Users\UserNotFoundException $e){
+		 	return 1;
+		 }
+	}
 } 
