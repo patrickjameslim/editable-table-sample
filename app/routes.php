@@ -113,6 +113,8 @@ Route::get('/admin/cashier','AdminController@showCashier');
 Route::get('/admin/disconnected-bills','AdminController@showDisconnectedBills');
 Route::get('/admin/wheeling-rates','AdminController@showWheelingRates');
 Route::get('/admin/add-user','UserMaintenanceController@showAddUser');
+Route::post('/admin/search-logs','AdminController@searchLogs');
+
 //crud ng users
 Route::put('/admin/update-user/{id}','UserMaintenanceController@modifyUser');
 Route::get('/admin/activation-user/{id}','UserMaintenanceController@activation');
