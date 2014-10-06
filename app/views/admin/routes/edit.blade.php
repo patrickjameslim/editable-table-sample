@@ -23,6 +23,7 @@
 					{{Form::select('location_id', $locations)}}
 
 					{{Form::submit('Save',array('class' => 'btn btn-primary'))}}
+					<a href="/admin/routes" class="btn btn-primary cancel-button-primary">Cancel</a>
 			{{Form::close()}}
 		</div>
 	</div>	

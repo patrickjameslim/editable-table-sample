@@ -20,6 +20,7 @@
 					<div class="error">{{$errors->first('location_name')}}</div>
 
 					{{Form::submit('Save',array('class' => 'btn btn-primary'))}}
+					<a href="/admin/location" class="btn btn-primary cancel-button-primary">Cancel</a>
 			{{Form::close()}}
 		</div>
 	</div>	

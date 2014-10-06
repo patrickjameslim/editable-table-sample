@@ -19,6 +19,7 @@
 			</div>
 		@endif
 		<div class="row">
+			<a href="/admin/location" class="btn btn-primary cancel-button-primary margin-bot5">Back</a>
 			<table class="responsive">
 			  <thead>
 			    <tr>
