@@ -159,3 +159,7 @@ Route::get('consumer/home','ConsumerController@showHome');
 Route::get('consumer/enroll/{id}','ConsumerController@showEnroll');
 Route::post('consumer/enroll/{id}','ConsumerController@enroll');
 Route::get('consumer/logout','AuthController@logout');
+
+
+/*Ajax routes*/
+Route::get('admin/ajax/payments-annual/{year}','AjaxController@paymentsAnnual');

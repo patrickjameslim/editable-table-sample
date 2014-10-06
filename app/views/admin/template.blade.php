@@ -73,5 +73,6 @@
     		$(".datepicker").datepicker();
     	});	
   	</script>
+  	{{HTML::script('scripts/chart-impl.js')}}
 </body>
 </html>
