@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder {
 		 $this->call('LocationTableSeeder');
 		 $this->call('RoutesTableSeeder');
 		 $this->call('UserLocationTableSeeder');
+		 $this->call('AccountTableSeeder');
 	}
 
 }
