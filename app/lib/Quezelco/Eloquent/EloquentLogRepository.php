@@ -32,11 +32,11 @@ class EloquentLogRepository implements LogRepository{
 	{
 		$query = "%$searchKey%";
 
-		$users = Logging::join('users', 'logs.user_id', '=', 'users.id')
+		$logs = Logging::join('users', 'logs.user_id', '=', 'users.id')
 					 ->join('user_location', 'users.id', '=', 'user_location.user_id')
 					 ->join('locations', 'locations.id', '=', 'user_location.location_id')
 					 ->whereRaw('locations.location_name LIKE ? or users.last_name LIKE ? or users.first_name LIKE ? or users.username LIKE ? and users.username != ?', 
 					 	array($query,$query,$query,$query,$this->auth->getCurrentUser()->username))->paginate(10);
-		return ($users);
+		return ($logs);
 	}
 }

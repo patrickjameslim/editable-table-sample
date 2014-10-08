@@ -7,7 +7,7 @@
 		<div class="container index-container">
 			<div class="col-md-8">
 					<h3>User Logs</h3>
-					{{Form::open(array('url' => 'admin/search-logs'))}}
+					{{Form::open(array('url' => 'admin/home'))}}
 					<div class="col-md-7 options-left">
 					<form role="form" action="">
 						<div class="form-group">
